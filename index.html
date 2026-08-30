@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>AI Farmer Credit Scorer</title>
+
+    <meta name="description"
+        content="AI-powered agricultural credit scoring platform for farmers.">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Identity Services -->
+    <script
+        src="https://accounts.google.com/gsi/client"
+        async
+        defer>
+    </script>
+
+</head>
+
+
+<body>
+
+
+<!-- ============================= -->
+<!-- LOADING SCREEN -->
+<!-- ============================= -->
+
+<div id="loader">
+
+    <div class="loader-content">
+
+        <div class="loader-icon">🌾</div>
+
+        <h2>AI Farmer Credit Scorer</h2>
+
+        <p>Initializing Agricultural Intelligence...</p>
+
+        <div class="loader-bar">
+
+            <span></span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ============================= -->
+<!-- NAVIGATION -->
+<!-- ============================= -->
+
+<header id="navbar">
+
+    <a href="#home" class="logo">
+
+        <div class="logo-icon">
+            🌾
+        </div>
+
+        <div class="logo-text">
+
+            <strong>AI Farmer</strong>
+
+            <span>Credit Scorer</span>
+
+        </div>
+
+    </a>
+
+
+    <nav id="navMenu">
+
+        <a href="#home">Home</a>
+
+        <a href="#analysis">AI Analysis</a>
+
+        <a href="#how-it-works">How It Works</a>
+
+        <a href="#features">Features</a>
+
+        <a href="#contact">Contact</a>
+
+    </nav>
+
+
+    <button
+        class="menu-btn"
+        id="menuBtn"
+        aria-label="Open Menu">
+
+        ☰
+
+    </button>
+
+</header>
+
+
+
+<!-- ============================= -->
+<!-- HERO SECTION -->
+<!-- ============================= -->
+
+<section class="hero" id="home">
+
+
+    <!-- VIDEO BACKGROUND -->
+
+    <video
+        class="hero-video"
+        id="heroVideo"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto">
+
+        <source
+            src="assets/farmer-video.mp4"
+            type="video/mp4">
+
+        Your browser does not support HTML5 video.
+
+    </video>
+
+
+
+    <!-- VIDEO DARK OVERLAY -->
+
+    <div class="hero-overlay"></div>
+
+
+
+    <!-- HERO CONTENT -->
+
+    <div class="hero-content">
+
+
+        <div class="hero-badge">
+
+            <span class="live-dot"></span>
+
+            AI-POWERED AGRICULTURAL INTELLIGENCE
+
+        </div>
+
+
+
+        <h1>
+
+            Smarter Credit Decisions
+
+            <span>
+                For Stronger Agriculture
+            </span>
+
+        </h1>
+
+
+
+        <p>
+
+            AI Farmer Credit Scorer uses Artificial Intelligence
+            and Machine Learning to analyze agricultural,
+            financial and environmental information and generate
+            intelligent credit risk insights.
+
+        </p>
+
+
+
+        <div class="hero-actions">
+
+
+            <a
+                href="#analysis"
+                class="primary-btn">
+
+                🤖 Start AI Analysis →
+
+            </a>
+
+
+
+            <a
+                href="#how-it-works"
+                class="secondary-btn">
+
+                ▶ How It Works
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- STATS -->
+
+        <div class="hero-stats">
+
+
+            <div class="stat">
+
+                <h3>AI</h3>
+
+                <p>Smart Analysis</p>
+
+            </div>
+
+
+
+            <div class="stat">
+
+                <h3>95%</h3>
+
+                <p>AI Model Accuracy Demo</p>
+
+            </div>
+
+
+
+            <div class="stat">
+
+                <h3>
+
+                    <span class="status-dot"></span>
+
+                </h3>
+
+                <p>AI System Active</p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="scroll-indicator">
+
+        <div class="scroll-line"></div>
+
+        <span>SCROLL TO EXPLORE</span>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- AI ANALYSIS / LOGIN -->
+<!-- ============================= -->
+
+<section
+    class="analysis-section"
+    id="analysis">
+
+
+    <div class="section-header">
+
+        <span class="section-tag">
+
+            🔐 SECURE ACCESS
+
+        </span>
+
+
+        <h2>
+
+            Start Your AI Credit Analysis
+
+        </h2>
+
+
+        <p>
+
+            Sign in with your Google account to securely
+            access the AI Farmer Credit Scorer platform.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="login-card">
+
+
+        <div class="login-icon">
+
+            🌾
+
+        </div>
+
+
+        <h3>
+
+            Welcome to AI Farmer Credit Scorer
+
+        </h3>
+
+
+        <p>
+
+            Sign in with Google to access your farmer
+            dashboard and start your AI-powered
+            agricultural credit analysis.
+
+        </p>
+
+
+
+        <!-- GOOGLE SIGN IN -->
+
+        <div id="googleLoginArea">
+
+
+            <!--
+                IMPORTANT:
+
+                Replace YOUR_GOOGLE_CLIENT_ID
+                with your real Google OAuth Client ID.
+            -->
+
+            <div
+                id="g_id_onload"
+
+                data-client_id="YOUR_GOOGLE_CLIENT_ID"
+
+                data-callback="handleGoogleLogin"
+
+                data-auto_prompt="false">
+
+            </div>
+
+
+
+            <div
+                class="g_id_signin"
+
+                data-type="standard"
+
+                data-size="large"
+
+                data-theme="outline"
+
+                data-text="continue_with"
+
+                data-shape="rectangular"
+
+                data-logo_alignment="left">
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- Alternative button -->
+
+        <button
+            class="demo-login-btn"
+            onclick="showLoginMessage()">
+
+            Continue to Demo Dashboard →
+
+        </button>
+
+
+        <p
+            class="login-note"
+            id="loginMessage">
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- HOW IT WORKS -->
+<!-- ============================= -->
+
+<section
+    class="how-section"
+    id="how-it-works">
+
+
+    <div class="section-header">
+
+        <span class="section-tag">
+
+            ⚙ AI PROCESS
+
+        </span>
+
+
+        <h2>
+
+            How It Works
+
+        </h2>
+
+
+        <p>
+
+            A simple AI-powered process for agricultural
+            credit assessment.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="steps-container">
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+
+                01
+
+            </div>
+
+
+            <div class="step-icon">
+
+                🔐
+
+            </div>
+
+
+            <h3>
+
+                Secure Login
+
+            </h3>
+
+
+            <p>
+
+                Sign in securely using your Google account.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+
+                02
+
+            </div>
+
+
+            <div class="step-icon">
+
+                📊
+
+            </div>
+
+
+            <h3>
+
+                Enter Farm Data
+
+            </h3>
+
+
+            <p>
+
+                Provide agricultural and financial information.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+
+                03
+
+            </div>
+
+
+            <div class="step-icon">
+
+                🤖
+
+            </div>
+
+
+            <h3>
+
+                AI Analysis
+
+            </h3>
+
+
+            <p>
+
+                Machine Learning analyzes the submitted data.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+
+                04
+
+            </div>
+
+
+            <div class="step-icon">
+
+                📈
+
+            </div>
+
+
+            <h3>
+
+                Get Results
+
+            </h3>
+
+
+            <p>
+
+                Receive intelligent credit risk insights.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- FEATURES -->
+<!-- ============================= -->
+
+<section
+    class="features-section"
+    id="features">
+
+
+    <div class="section-header">
+
+        <span class="section-tag">
+
+            ✨ PLATFORM FEATURES
+
+        </span>
+
+
+        <h2>
+
+            Intelligent Agriculture Meets Finance
+
+        </h2>
+
+    </div>
+
+
+
+    <div class="features-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                🤖
+
+            </div>
+
+
+            <h3>
+
+                AI Powered
+
+            </h3>
+
+
+            <p>
+
+                Machine Learning models analyze
+                agricultural and financial data.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                🌾
+
+            </div>
+
+
+            <h3>
+
+                Agricultural Analysis
+
+            </h3>
+
+
+            <p>
+
+                Evaluate crop production,
+                farm conditions and agricultural factors.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                💰
+
+            </div>
+
+
+            <h3>
+
+                Credit Assessment
+
+            </h3>
+
+
+            <p>
+
+                Generate intelligent credit
+                risk and scoring insights.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                📊
+
+            </div>
+
+
+            <h3>
+
+                Smart Dashboard
+
+            </h3>
+
+
+            <p>
+
+                View predictions and analysis
+                results in one secure platform.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- FUTURE AI SYSTEM -->
+<!-- ============================= -->
+
+<section class="future-section">
+
+
+    <div class="future-content">
+
+
+        <span class="section-tag">
+
+            🚀 NEXT STEP
+
+        </span>
+
+
+        <h2>
+
+            Your Data. Our AI. Better Credit Decisions.
+
+        </h2>
+
+
+        <p>
+
+            After login, farmers will enter agricultural
+            and financial information. The Python Machine
+            Learning backend will process the data and
+            generate a credit risk prediction.
+
+        </p>
+
+
+        <div class="ai-flow">
+
+
+            <div>
+
+                👨‍🌾
+
+                <span>Farmer</span>
+
+            </div>
+
+
+            <span>→</span>
+
+
+            <div>
+
+                📊
+
+                <span>Data</span>
+
+            </div>
+
+
+            <span>→</span>
+
+
+            <div>
+
+                🤖
+
+                <span>Python AI</span>
+
+            </div>
+
+
+            <span>→</span>
+
+
+            <div>
+
+                📈
+
+                <span>Credit Score</span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- CONTACT -->
+<!-- ============================= -->
+
+<section
+    class="contact-section"
+    id="contact">
+
+
+    <div class="section-header">
+
+        <span class="section-tag">
+
+            📩 CONTACT
+
+        </span>
+
+
+        <h2>
+
+            AI Farmer Credit Scorer
+
+        </h2>
+
+
+        <p>
+
+            An Artificial Intelligence and Machine Learning
+            project for intelligent agricultural credit assessment.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- FOOTER -->
+<!-- ============================= -->
+
+<footer>
+
+
+    <div class="footer-logo">
+
+        🌾 AI Farmer Credit Scorer
+
+    </div>
+
+
+    <p>
+
+        © 2026 AI Farmer Credit Scorer.
+        AI Powered Agricultural Intelligence.
+
+    </p>
+
+
+</footer>
+
+
+
+<!-- ============================= -->
+<!-- TOAST MESSAGE -->
+<!-- ============================= -->
+
+<div id="toast">
+
+    <span id="toastText"></span>
+
+    <button onclick="closeMessage()">
+
+        ×
+
+    </button>
+
+</div>
+
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
