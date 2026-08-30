@@ -5,7 +5,6 @@
 
 "use strict";
 
-
 /* =========================================================
    PAGE LOADING
 ========================================================= */
@@ -17,26 +16,34 @@ window.addEventListener("load", () => {
         setTimeout(() => {
             loader.style.opacity = "0";
             loader.style.visibility = "hidden";
-        }, 600);
+        }, 700);
     }
 });
+
+
 /* =========================================================
    GOOGLE LOGIN
 ========================================================= */
 
 function handleGoogleLogin(response) {
+
     if (!response || !response.credential) {
-        console.error("Google login failed.");
+        showToast("Google login failed. Please try again.");
         return;
     }
 
     console.log("Google login successful.");
-    alert("Google login successful!");
+
+    showToast("Google login successful!");
+
+    setTimeout(() => {
+        window.location.href = "#analysis";
+    }, 1000);
 }
 
 
 /* =========================================================
-   NAVBAR SCROLL EFFECT
+   NAVBAR
 ========================================================= */
 
 const navbar = document.getElementById("navbar");
@@ -55,18 +62,18 @@ window.addEventListener("scroll", () => {
 
 
 /* =========================================================
-   MOBILE NAVIGATION
+   MOBILE MENU
 ========================================================= */
 
-const menuToggle = document.getElementById("menuToggle");
+const menuBtn = document.getElementById("menuBtn");
 const navMenu = document.getElementById("navMenu");
 
-if (menuToggle && navMenu) {
+if (menuBtn && navMenu) {
 
-    menuToggle.addEventListener("click", () => {
+    menuBtn.addEventListener("click", () => {
 
         navMenu.classList.toggle("active");
-        menuToggle.classList.toggle("active");
+        menuBtn.classList.toggle("active");
 
     });
 
@@ -74,7 +81,7 @@ if (menuToggle && navMenu) {
 
 
 /* =========================================================
-   CLOSE MOBILE MENU AFTER CLICK
+   CLOSE MOBILE MENU
 ========================================================= */
 
 document.querySelectorAll("#navMenu a").forEach((link) => {
@@ -85,8 +92,8 @@ document.querySelectorAll("#navMenu a").forEach((link) => {
             navMenu.classList.remove("active");
         }
 
-        if (menuToggle) {
-            menuToggle.classList.remove("active");
+        if (menuBtn) {
+            menuBtn.classList.remove("active");
         }
 
     });
@@ -98,9 +105,9 @@ document.querySelectorAll("#navMenu a").forEach((link) => {
    SMOOTH SCROLL
 ========================================================= */
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
-    anchor.addEventListener("click", function (event) {
+    link.addEventListener("click", function (event) {
 
         const targetID = this.getAttribute("href");
 
@@ -127,19 +134,58 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
 
 /* =========================================================
-   START AI ANALYSIS BUTTON
+   HERO VIDEO
 ========================================================= */
 
-const startAnalysisButton = document.getElementById("startAnalysis");
+const heroVideo = document.getElementById("heroVideo");
+
+if (heroVideo) {
+
+    heroVideo.muted = true;
+    heroVideo.loop = true;
+    heroVideo.playsInline = true;
+
+    heroVideo.play().catch(() => {
+
+        console.log(
+            "Video autoplay was blocked by the browser."
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   VIDEO ERROR
+========================================================= */
+
+if (heroVideo) {
+
+    heroVideo.addEventListener("error", () => {
+
+        console.log(
+            "Video could not be loaded. Check assets/farmer-video.mp4"
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   START AI ANALYSIS
+========================================================= */
+
+const startAnalysisButton =
+    document.getElementById("startAnalysis");
 
 if (startAnalysisButton) {
 
     startAnalysisButton.addEventListener("click", () => {
 
         const analysisSection =
-            document.getElementById("analysis") ||
-            document.getElementById("ai-analysis") ||
-            document.querySelector(".analysis-section");
+            document.getElementById("analysis");
 
         if (analysisSection) {
 
@@ -147,12 +193,6 @@ if (startAnalysisButton) {
                 behavior: "smooth",
                 block: "start"
             });
-
-        } else {
-
-            showToast(
-                "AI Analysis section is ready. Connect your dataset and Python AI model next."
-            );
 
         }
 
@@ -162,19 +202,18 @@ if (startAnalysisButton) {
 
 
 /* =========================================================
-   HOW IT WORKS BUTTON
+   HOW IT WORKS
 ========================================================= */
 
-const howItWorksButton = document.getElementById("howItWorks");
+const howItWorksButton =
+    document.getElementById("howItWorks");
 
 if (howItWorksButton) {
 
     howItWorksButton.addEventListener("click", () => {
 
         const howSection =
-            document.getElementById("how") ||
-            document.getElementById("how-it-works") ||
-            document.querySelector(".how-section");
+            document.getElementById("how-it-works");
 
         if (howSection) {
 
@@ -191,67 +230,33 @@ if (howItWorksButton) {
 
 
 /* =========================================================
-   HERO VIDEO
+   ACTIVE NAVIGATION
 ========================================================= */
 
-const heroVideo = document.getElementById("heroVideo");
+const sections =
+    document.querySelectorAll("section[id]");
 
-if (heroVideo) {
-
-    heroVideo.muted = true;
-    heroVideo.loop = true;
-    heroVideo.playsInline = true;
-
-    heroVideo.play().catch(() => {
-
-        console.log(
-            "Video autoplay was blocked. The website will continue normally."
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   VIDEO ERROR CHECK
-========================================================= */
-
-if (heroVideo) {
-
-    heroVideo.addEventListener("error", () => {
-
-        console.log(
-            "Hero video could not be loaded. Check assets/farmer-video.mp4"
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   ACTIVE NAVIGATION LINK
-========================================================= */
-
-const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll("#navMenu a");
+const navLinks =
+    document.querySelectorAll("#navMenu a");
 
 window.addEventListener("scroll", () => {
 
-    let currentSection = "";
+    let current = "";
 
     sections.forEach((section) => {
 
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
+        const sectionTop =
+            section.offsetTop - 150;
+
+        const sectionHeight =
+            section.offsetHeight;
 
         if (
-            window.scrollY >= sectionTop - 200 &&
-            window.scrollY < sectionTop + sectionHeight - 200
+            window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight
         ) {
 
-            currentSection = section.getAttribute("id");
+            current = section.getAttribute("id");
 
         }
 
@@ -264,7 +269,7 @@ window.addEventListener("scroll", () => {
 
         const href = link.getAttribute("href");
 
-        if (href === "#" + currentSection) {
+        if (href === "#" + current) {
             link.classList.add("active");
         }
 
@@ -274,25 +279,29 @@ window.addEventListener("scroll", () => {
 
 
 /* =========================================================
-   SCROLL REVEAL ANIMATION
+   SCROLL REVEAL
 ========================================================= */
 
-const revealElements = document.querySelectorAll(
-    ".reveal, .feature-card, .step-card, .analysis-card"
-);
+const revealElements =
+    document.querySelectorAll(
+        ".feature-card, .step-card, .login-card, .contact-container"
+    );
 
 
 function revealOnScroll() {
 
-    const windowHeight = window.innerHeight;
+    const windowHeight =
+        window.innerHeight;
 
     revealElements.forEach((element) => {
 
         const elementTop =
             element.getBoundingClientRect().top;
 
-        if (elementTop < windowHeight - 100) {
+        if (elementTop < windowHeight - 80) {
+
             element.classList.add("visible");
+
         }
 
     });
@@ -300,7 +309,10 @@ function revealOnScroll() {
 }
 
 
-window.addEventListener("scroll", revealOnScroll);
+window.addEventListener(
+    "scroll",
+    revealOnScroll
+);
 
 revealOnScroll();
 
@@ -313,28 +325,32 @@ function animateCounter(element, target) {
 
     let current = 0;
 
-    const increment = Math.ceil(target / 100);
+    const increment =
+        Math.max(1, Math.ceil(target / 100));
 
-    const timer = setInterval(() => {
+    const timer =
+        setInterval(() => {
 
-        current += increment;
+            current += increment;
 
-        if (current >= target) {
+            if (current >= target) {
 
-            current = target;
+                current = target;
 
-            clearInterval(timer);
+                clearInterval(timer);
 
-        }
+            }
 
-        element.textContent = current.toLocaleString();
+            element.textContent =
+                current.toLocaleString();
 
-    }, 20);
+        }, 20);
 
 }
 
 
-const counters = document.querySelectorAll("[data-count]");
+const counters =
+    document.querySelectorAll("[data-count]");
 
 let countersStarted = false;
 
@@ -346,11 +362,17 @@ function startCounters() {
     counters.forEach((counter) => {
 
         const target =
-            parseInt(counter.getAttribute("data-count"));
+            parseInt(
+                counter.getAttribute("data-count"),
+                10
+            );
 
         if (!isNaN(target)) {
 
-            animateCounter(counter, target);
+            animateCounter(
+                counter,
+                target
+            );
 
         }
 
@@ -361,69 +383,83 @@ function startCounters() {
 }
 
 
-/* =========================================================
-   OBSERVE COUNTER SECTION
-========================================================= */
-
 const statsSection =
-    document.querySelector(".hero-stats") ||
-    document.querySelector(".stats");
+    document.querySelector(".hero-stats");
+
 
 if (statsSection) {
 
-    const observer = new IntersectionObserver(
-        (entries) => {
+    const counterObserver =
+        new IntersectionObserver(
+            (entries) => {
 
-            entries.forEach((entry) => {
+                entries.forEach((entry) => {
 
-                if (entry.isIntersecting) {
+                    if (entry.isIntersecting) {
 
-                    startCounters();
+                        startCounters();
 
-                    observer.unobserve(entry.target);
+                        counterObserver.unobserve(
+                            entry.target
+                        );
 
-                }
+                    }
 
-            });
+                });
 
-        },
-        {
-            threshold: 0.3
-        }
-    );
+            },
+            {
+                threshold: 0.3
+            }
+        );
 
-    observer.observe(statsSection);
+    counterObserver.observe(statsSection);
 
 }
 
 
 /* =========================================================
-   TOAST MESSAGE
+   TOAST
 ========================================================= */
 
 function showToast(message) {
 
-    const toast = document.getElementById("toast");
-    const toastText = document.getElementById("toastText");
+    const toast =
+        document.getElementById("toast");
+
+    const toastText =
+        document.getElementById("toastText");
 
     if (!toast) {
 
         console.log(message);
+
         return;
 
     }
 
     if (toastText) {
-        toastText.textContent = message;
+
+        toastText.textContent =
+            message;
+
     } else {
-        toast.textContent = message;
+
+        toast.textContent =
+            message;
+
     }
 
+    toast.style.display = "flex";
+
     toast.classList.add("show");
+
 
     setTimeout(() => {
 
         toast.classList.remove("show");
+
+        toast.style.display = "none";
 
     }, 4000);
 
@@ -436,11 +472,79 @@ function showToast(message) {
 
 function closeMessage() {
 
-    const toast = document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
     if (toast) {
+
         toast.classList.remove("show");
+
+        toast.style.display = "none";
+
     }
+
+}
+
+
+/* =========================================================
+   DEMO DASHBOARD BUTTON
+========================================================= */
+
+function showLoginMessage() {
+
+    showToast(
+        "Please sign in with Google first to continue."
+    );
+
+}
+
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+const contactForm =
+    document.getElementById("contactForm");
+
+
+if (contactForm) {
+
+    contactForm.addEventListener(
+        "submit",
+        (event) => {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("name")?.value.trim();
+
+            const email =
+                document.getElementById("email")?.value.trim();
+
+            const message =
+                document.getElementById("message")?.value.trim();
+
+
+            if (!name || !email || !message) {
+
+                showToast(
+                    "Please complete all contact fields."
+                );
+
+                return;
+
+            }
+
+
+            showToast(
+                "Thank you! Your message is ready to be sent."
+            );
+
+
+            contactForm.reset();
+
+        }
+    );
 
 }
 
@@ -455,81 +559,83 @@ const analysisForm =
 
 if (analysisForm) {
 
-    analysisForm.addEventListener("submit", (event) => {
+    analysisForm.addEventListener(
+        "submit",
+        (event) => {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        showToast(
-            "Your agricultural data is ready for AI analysis."
-        );
+            showToast(
+                "Your agricultural data is ready for AI analysis."
+            );
 
-        /*
-        ====================================================
-        LATER:
-        This form will send data to your Python API.
+            console.log(
+                "Analysis form submitted."
+            );
 
-        Example:
-
-        fetch("https://your-python-api.com/predict", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                farm_size: ...,
-                income: ...,
-                crop_type: ...
-            })
-        })
-
-        Python Flask / FastAPI will return:
-        Credit Score
-        Risk Level
-        Loan Recommendation
-        ====================================================
-        */
-
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
-   GOOGLE LOGIN PLACEHOLDER
+   GOOGLE IDENTITY SERVICES CHECK
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    const googleButton =
+        document.querySelector(".g_id_signin");
+
+    if (!googleButton) {
+
+        console.log(
+            "Google Sign-In button was not found."
+        );
+
+        return;
+
+    }
+
+    console.log(
+        "Google Sign-In component detected."
+    );
+
+});
+
+
+/* =========================================================
+   SECURITY NOTE
 ========================================================= */
 
 /*
 IMPORTANT:
 
-Google Login cannot be completed using only
-index.html + style.css + script.js.
+Do NOT put:
 
-After your website is uploaded to GitHub and
-deployed online, we will connect:
+- Google Client Secret
+- Database password
+- API secret key
+- Private key
 
-1. GitHub repository
-2. Hosting website
-3. Google Cloud Console
-4. OAuth Client ID
-5. Authorized JavaScript Origin
-6. Authorized Redirect URI
-7. Google Sign-In button
+inside this JavaScript file.
 
-Then the Google login will work with a REAL
-Google account.
+Only public configuration such as
+Google Client ID / Supabase publishable key
+can be used on the frontend when appropriate.
 
-Do NOT put a Google Client Secret inside this
-script.js file.
+Never store user passwords in localStorage.
 */
 
 
 /* =========================================================
-   CONSOLE MESSAGE
+   SYSTEM MESSAGE
 ========================================================= */
 
 console.log(
     "%cAI Farmer Credit Scorer",
-    "color:#55d6a7; font-size:20px; font-weight:bold;"
+    "font-size:20px;font-weight:bold;"
 );
 
 console.log(
