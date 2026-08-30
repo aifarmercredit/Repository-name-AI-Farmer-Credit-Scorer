@@ -20,6 +20,19 @@ window.addEventListener("load", () => {
         }, 600);
     }
 });
+/* =========================================================
+   GOOGLE LOGIN
+========================================================= */
+
+function handleGoogleLogin(response) {
+    if (!response || !response.credential) {
+        console.error("Google login failed.");
+        return;
+    }
+
+    console.log("Google login successful.");
+    alert("Google login successful!");
+}
 
 
 /* =========================================================
