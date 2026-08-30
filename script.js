@@ -4,6 +4,45 @@
 ========================================================= */
 
 "use strict";
+/* =========================================================
+   AI FARMER CREDIT SCORER
+   script.js
+========================================================= */
+
+"use strict";
+
+
+/* =========================================================
+   SUPABASE CONFIGURATION
+========================================================= */
+
+const SUPABASE_URL = "https://xcevtpkrasvevwyvvdjq.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_C_WZDTvi8dZwZAgKQh6ANA_vJDd6LKH";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("Supabase initialized successfully.");
+
+
+/* =========================================================
+   PAGE LOADING
+========================================================= */
+
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+
+    if (loader) {
+        setTimeout(() => {
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+        }, 600);
+    }
+});
 
 /* =========================================================
    PAGE LOADING
