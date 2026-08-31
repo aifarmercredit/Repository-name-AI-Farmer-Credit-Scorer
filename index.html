@@ -1,0 +1,614 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AI Farmer Credit Scorer</title>
+
+<meta name="description"
+      content="AI-powered agricultural credit scoring platform for farmers.">
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="style.css">
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head><body><!-- LOADER --><div id="loader">
+    <div class="loader-box">
+        <div class="loader-icon">🌾</div>
+        <h2>AI Farmer Credit Scorer</h2>
+        <p>Initializing Agricultural Intelligence...</p>
+        <div class="loader-line">
+            <span></span>
+        </div>
+    </div>
+</div><!-- NAVBAR --><header id="navbar"><a href="#home" class="logo">
+    <span class="logo-icon">🌾</span>
+
+    <span class="logo-text">
+        <strong>AI Farmer</strong>
+        <small>Credit Scorer</small>
+    </span>
+</a>
+
+<nav id="navMenu">
+    <a href="#home">Home</a>
+    <a href="#analysis">AI Analysis</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#features">Features</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<button id="menuBtn" class="menu-btn">☰</button>
+
+</header><!-- HERO --><section class="hero" id="home"><div class="hero-background"></div>
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
+
+    <div class="hero-badge">
+        <span class="live-dot"></span>
+        AI-POWERED AGRICULTURAL INTELLIGENCE
+    </div>
+
+    <h1>
+        Smarter Credit Decisions
+        <span>For Stronger Agriculture</span>
+    </h1>
+
+    <p>
+        AI Farmer Credit Scorer uses Artificial Intelligence
+        and Machine Learning to analyze agricultural,
+        financial and environmental information and provide
+        intelligent credit-risk insights.
+    </p>
+
+    <div class="hero-buttons">
+        <a href="#analysis" class="primary-btn">
+            🤖 Start AI Analysis
+        </a>
+
+        <a href="#how-it-works" class="secondary-btn">
+            ▶ How It Works
+        </a>
+    </div>
+
+    <div class="stats">
+
+        <div>
+            <strong>AI</strong>
+            <span>Smart Analysis</span>
+        </div>
+
+        <div>
+            <strong>95%</strong>
+            <span>Demo Model Accuracy</span>
+        </div>
+
+        <div>
+            <strong>
+                <span class="status-dot"></span>
+            </strong>
+            <span>System Active</span>
+        </div>
+
+    </div>
+</div>
+
+</section><!-- AUTH SECTION --><section class="analysis-section" id="analysis"><div class="section-header">
+
+    <span class="section-tag">
+        🔐 SECURE ACCESS
+    </span>
+
+    <h2>
+        Access Your Farmer Account
+    </h2>
+
+    <p>
+        Sign in or create an account to access your
+        personal agricultural credit dashboard.
+    </p>
+</div>
+
+
+<!-- LOGIN -->
+<div class="auth-card" id="loginCard">
+
+    <div class="auth-icon">🌾</div>
+
+    <h3>Welcome Back</h3>
+
+    <p>
+        Sign in to continue to your farmer dashboard.
+    </p>
+
+    <form id="loginForm">
+
+        <label>Email Address</label>
+
+        <input
+            id="loginEmail"
+            type="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+        >
+
+        <label>Password</label>
+
+        <div class="password-box">
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button
+                type="button"
+                data-toggle="loginPassword">
+                👁
+            </button>
+
+        </div>
+
+        <button class="primary-btn full-btn" type="submit">
+            🔐 Sign In
+        </button>
+    </form>
+
+
+    <button id="googleLogin" class="google-btn">
+        <span>G</span>
+        Continue with Google
+    </button>
+
+
+    <button
+        id="showRegister"
+        class="text-btn">
+        Create a new account
+    </button>
+
+    <button
+        id="forgotPassword"
+        class="forgot-btn">
+        Forgot password?
+    </button>
+
+    <p id="loginMessage" class="message"></p>
+
+</div>
+
+
+<!-- REGISTER -->
+<div
+    class="auth-card hidden"
+    id="registerCard">
+
+    <div class="auth-icon">🌱</div>
+
+    <h3>Create Farmer Account</h3>
+
+    <p>
+        Create your secure account to begin.
+    </p>
+
+    <form id="registerForm">
+
+        <label>Full Name</label>
+
+        <input
+            id="registerName"
+            type="text"
+            placeholder="Your full name"
+            autocomplete="name"
+            required
+        >
+
+        <label>Email Address</label>
+
+        <input
+            id="registerEmail"
+            type="email"
+            placeholder="Your email"
+            autocomplete="email"
+            required
+        >
+
+        <label>Password</label>
+
+        <div class="password-box">
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Create password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <button
+                type="button"
+                data-toggle="registerPassword">
+                👁
+            </button>
+
+        </div>
+
+        <button class="primary-btn full-btn" type="submit">
+            🌱 Create Account
+        </button>
+
+    </form>
+
+
+    <button id="googleRegister" class="google-btn">
+        <span>G</span>
+        Sign up with Google
+    </button>
+
+
+    <button
+        id="showLogin"
+        class="text-btn">
+        Already have an account? Sign in
+    </button>
+
+    <p id="registerMessage" class="message"></p>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<div
+    id="dashboardCard"
+    class="dashboard-card hidden">
+
+    <div class="dashboard-top">
+
+        <div class="user-info">
+
+            <div id="avatar" class="avatar">
+                F
+            </div>
+
+            <div>
+                <span>Welcome back</span>
+
+                <h3 id="userName">
+                    Farmer
+                </h3>
+
+                <small id="userEmail">
+                    farmer@email.com
+                </small>
+            </div>
+
+        </div>
+
+        <button
+            id="logoutBtn"
+            class="logout-btn">
+            Logout
+        </button>
+
+    </div>
+
+
+    <div class="verification-box">
+
+        <div class="verification-icon">
+            🛡️
+        </div>
+
+        <div>
+
+            <h3>
+                Identity Verification
+            </h3>
+
+            <p id="verificationStatus">
+                Your identity has not been verified yet.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-item">
+
+            <span>👤</span>
+
+            <h4>Personal Profile</h4>
+
+            <p>
+                Manage your farmer profile information.
+            </p>
+
+            <button
+                id="profileBtn"
+                class="small-btn">
+                Open Profile
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-item">
+
+            <span>🪪</span>
+
+            <h4>Fayda Verification</h4>
+
+            <p>
+                Verify your identity through the
+                official verification process.
+            </p>
+
+            <button
+                id="verifyBtn"
+                class="small-btn">
+                Verify Identity
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-item">
+
+            <span>🤖</span>
+
+            <h4>AI Credit Analysis</h4>
+
+            <p>
+                Submit agricultural information
+                for AI analysis.
+            </p>
+
+            <button
+                id="analysisBtn"
+                class="small-btn">
+                Start Analysis
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-item">
+
+            <span>📈</span>
+
+            <h4>Credit Result</h4>
+
+            <p>
+                Your future credit analysis result
+                will appear here.
+            </p>
+
+            <span class="coming">
+                Coming Soon
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section><!-- HOW IT WORKS --><section class="how-section" id="how-it-works"><div class="section-header">
+
+    <span class="section-tag">
+        ⚙ AI PROCESS
+    </span>
+
+    <h2>How It Works</h2>
+
+    <p>
+        Simple, secure and intelligent.
+    </p>
+</div>
+
+
+<div class="steps">
+
+    <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="step-icon">🔐</div>
+        <h3>Create Account</h3>
+        <p>
+            Register securely using email
+            or Google.
+        </p>
+    </div>
+
+
+    <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-icon">🪪</div>
+        <h3>Verify Identity</h3>
+        <p>
+            Complete the approved identity
+            verification process.
+        </p>
+    </div>
+
+
+    <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-icon">📊</div>
+        <h3>Enter Farm Data</h3>
+        <p>
+            Provide agricultural and
+            financial information.
+        </p>
+    </div>
+
+
+    <div class="step-card">
+        <div class="step-number">04</div>
+        <div class="step-icon">🤖</div>
+        <h3>AI Analysis</h3>
+        <p>
+            Machine Learning analyzes
+            the submitted information.
+        </p>
+    </div>
+
+</div>
+
+</section><!-- FEATURES --><section class="features-section" id="features"><div class="section-header">
+
+    <span class="section-tag">
+        ✨ PLATFORM FEATURES
+    </span>
+
+    <h2>
+        Intelligent Agriculture Meets Finance
+    </h2>
+
+</div>
+
+
+<div class="features-grid">
+
+    <div class="feature-card">
+        <div>🤖</div>
+        <h3>AI Powered</h3>
+        <p>
+            Machine Learning helps analyze
+            agricultural and financial data.
+        </p>
+    </div>
+
+
+    <div class="feature-card">
+        <div>🌾</div>
+        <h3>Agricultural Analysis</h3>
+        <p>
+            Evaluate farm and agricultural
+            factors.
+        </p>
+    </div>
+
+
+    <div class="feature-card">
+        <div>💰</div>
+        <h3>Credit Assessment</h3>
+        <p>
+            Generate intelligent credit-risk
+            insights.
+        </p>
+    </div>
+
+
+    <div class="feature-card">
+        <div>📊</div>
+        <h3>Smart Dashboard</h3>
+        <p>
+            View your account and AI results
+            in one place.
+        </p>
+    </div>
+
+</div>
+
+</section><!-- CONTACT --><section class="contact-section" id="contact"><div class="contact-container">
+
+    <div class="contact-info">
+
+        <span class="section-tag">
+            📩 CONTACT
+        </span>
+
+        <h2>
+            Contact AI Farmer Credit Scorer
+        </h2>
+
+        <p>
+            Have a question? Send us a message.
+        </p>
+
+        <div class="contact-details">
+
+            <p>
+                📧
+                <strong>
+                    aifarmercredit@gmail.com
+                </strong>
+            </p>
+
+            <p>
+                📞
+                <strong>
+                    0967757546
+                </strong>
+            </p>
+
+            <p>
+                📍
+                <strong>
+                    Ethiopia
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <form id="contactForm">
+
+        <input
+            id="contactName"
+            type="text"
+            placeholder="Your name"
+            required
+        >
+
+        <input
+            id="contactEmail"
+            type="email"
+            placeholder="Your email"
+            required
+        >
+
+        <textarea
+            id="contactMessage"
+            rows="5"
+            placeholder="Write your message..."
+            required>
+        </textarea>
+
+        <button
+            class="primary-btn"
+            type="submit">
+            Send Message
+        </button>
+
+    </form>
+
+</div>
+
+</section><!-- FOOTER --><footer><div>
+    🌾 <strong>AI Farmer Credit Scorer</strong>
+</div>
+
+<p>
+    © 2026 AI Farmer Credit Scorer.
+    AI Powered Agricultural Intelligence.
+</p>
+
+</footer><!-- TOAST --><div id="toast" class="toast"><span id="toastText"></span>
+
+<button id="closeToast">×</button>
+
+</div><!-- JAVASCRIPT --><script src="script.js"></script></body>
+          </html>
