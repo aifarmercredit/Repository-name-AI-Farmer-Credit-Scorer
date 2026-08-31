@@ -1,12 +1,6 @@
 /* =========================================================
    AI FARMER CREDIT SCORER
-   script.js
-========================================================= */
-
-"use strict";
-/* =========================================================
-   AI FARMER CREDIT SCORER
-   script.js
+   PROFILE JAVASCRIPT
 ========================================================= */
 
 "use strict";
@@ -21,596 +15,483 @@ const SUPABASE_URL = "https://xcevtpkrasvevwyvvdjq.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_C_WZDTvi8dZwZAgKQh6ANA_vJDd6LKH";
 
+
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
 
-console.log("Supabase initialized successfully.");
+
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
+
+const profileName = document.getElementById("profileName");
+
+const profileEmail = document.getElementById("profileEmail");
+
+const profileAvatar = document.getElementById("profileAvatar");
+
+const welcomeName = document.getElementById("welcomeName");
+
+const userFullName = document.getElementById("userFullName");
+
+const userEmail = document.getElementById("userEmail");
+
+const userProvider = document.getElementById("userProvider");
+
+const userId = document.getElementById("userId");
+
+const logoutButton = document.getElementById("logoutBtn");
+
+const dashboardButton =
+    document.getElementById("dashboardBtn");
+
+const loader = document.getElementById("profileLoader");
 
 
 /* =========================================================
-   PAGE LOADING
+   SHOW LOADER
 ========================================================= */
 
-window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
+function showLoader() {
 
     if (loader) {
-        setTimeout(() => {
-            loader.style.opacity = "0";
-            loader.style.visibility = "hidden";
-        }, 600);
+
+        loader.style.display = "flex";
+
     }
-});
-
-/* =========================================================
-   PAGE LOADING
-========================================================= */
-
-window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-
-    if (loader) {
-        setTimeout(() => {
-            loader.style.opacity = "0";
-            loader.style.visibility = "hidden";
-        }, 700);
-    }
-});
-
-
-/* =========================================================
-   GOOGLE LOGIN
-========================================================= */
-
-function handleGoogleLogin(response) {
-
-    if (!response || !response.credential) {
-        showToast("Google login failed. Please try again.");
-        return;
-    }
-
-    console.log("Google login successful.");
-
-    showToast("Google login successful!");
-
-    setTimeout(() => {
-        window.location.href = "#analysis";
-    }, 1000);
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-const navbar = document.getElementById("navbar");
-
-window.addEventListener("scroll", () => {
-
-    if (!navbar) return;
-
-    if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-    } else {
-        navbar.classList.remove("scrolled");
-    }
-
-});
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-const menuBtn = document.getElementById("menuBtn");
-const navMenu = document.getElementById("navMenu");
-
-if (menuBtn && navMenu) {
-
-    menuBtn.addEventListener("click", () => {
-
-        navMenu.classList.toggle("active");
-        menuBtn.classList.toggle("active");
-
-    });
 
 }
 
 
 /* =========================================================
-   CLOSE MOBILE MENU
+   HIDE LOADER
 ========================================================= */
 
-document.querySelectorAll("#navMenu a").forEach((link) => {
+function hideLoader() {
 
-    link.addEventListener("click", () => {
+    if (loader) {
 
-        if (navMenu) {
-            navMenu.classList.remove("active");
-        }
+        loader.style.opacity = "0";
 
-        if (menuBtn) {
-            menuBtn.classList.remove("active");
-        }
+        setTimeout(() => {
 
-    });
+            loader.style.display = "none";
 
-});
+        }, 400);
+
+    }
+
+}
 
 
 /* =========================================================
-   SMOOTH SCROLL
+   GET USER INITIALS
 ========================================================= */
 
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
+function getInitials(name) {
 
-    link.addEventListener("click", function (event) {
+    if (!name) {
+        return "U";
+    }
 
-        const targetID = this.getAttribute("href");
+    const words = name.trim().split(" ");
 
-        if (!targetID || targetID === "#") {
+    if (words.length === 1) {
+
+        return words[0]
+            .charAt(0)
+            .toUpperCase();
+
+    }
+
+    return (
+        words[0].charAt(0) +
+        words[1].charAt(0)
+    ).toUpperCase();
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "Not available";
+    }
+
+    const date = new Date(dateValue);
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD USER PROFILE
+========================================================= */
+
+async function loadUserProfile() {
+
+    showLoader();
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error) {
+
+            console.error(
+                "Authentication error:",
+                error.message
+            );
+
+            window.location.href = "index.html";
+
             return;
-        }
-
-        const target = document.querySelector(targetID);
-
-        if (target) {
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
 
         }
 
-    });
 
-});
+        const user = data.user;
 
 
-/* =========================================================
-   HERO VIDEO
-========================================================= */
+        /* =================================================
+           NO USER LOGGED IN
+        ================================================= */
 
-const heroVideo = document.getElementById("heroVideo");
-
-if (heroVideo) {
-
-    heroVideo.muted = true;
-    heroVideo.loop = true;
-    heroVideo.playsInline = true;
-
-    heroVideo.play().catch(() => {
-
-        console.log(
-            "Video autoplay was blocked by the browser."
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   VIDEO ERROR
-========================================================= */
-
-if (heroVideo) {
-
-    heroVideo.addEventListener("error", () => {
-
-        console.log(
-            "Video could not be loaded. Check assets/farmer-video.mp4"
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   START AI ANALYSIS
-========================================================= */
-
-const startAnalysisButton =
-    document.getElementById("startAnalysis");
-
-if (startAnalysisButton) {
-
-    startAnalysisButton.addEventListener("click", () => {
-
-        const analysisSection =
-            document.getElementById("analysis");
-
-        if (analysisSection) {
-
-            analysisSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   HOW IT WORKS
-========================================================= */
-
-const howItWorksButton =
-    document.getElementById("howItWorks");
-
-if (howItWorksButton) {
-
-    howItWorksButton.addEventListener("click", () => {
-
-        const howSection =
-            document.getElementById("how-it-works");
-
-        if (howSection) {
-
-            howSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-    });
-
-}
-
-
-/* =========================================================
-   ACTIVE NAVIGATION
-========================================================= */
-
-const sections =
-    document.querySelectorAll("section[id]");
-
-const navLinks =
-    document.querySelectorAll("#navMenu a");
-
-window.addEventListener("scroll", () => {
-
-    let current = "";
-
-    sections.forEach((section) => {
-
-        const sectionTop =
-            section.offsetTop - 150;
-
-        const sectionHeight =
-            section.offsetHeight;
-
-        if (
-            window.scrollY >= sectionTop &&
-            window.scrollY < sectionTop + sectionHeight
-        ) {
-
-            current = section.getAttribute("id");
-
-        }
-
-    });
-
-
-    navLinks.forEach((link) => {
-
-        link.classList.remove("active");
-
-        const href = link.getAttribute("href");
-
-        if (href === "#" + current) {
-            link.classList.add("active");
-        }
-
-    });
-
-});
-
-
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-const revealElements =
-    document.querySelectorAll(
-        ".feature-card, .step-card, .login-card, .contact-container"
-    );
-
-
-function revealOnScroll() {
-
-    const windowHeight =
-        window.innerHeight;
-
-    revealElements.forEach((element) => {
-
-        const elementTop =
-            element.getBoundingClientRect().top;
-
-        if (elementTop < windowHeight - 80) {
-
-            element.classList.add("visible");
-
-        }
-
-    });
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    revealOnScroll
-);
-
-revealOnScroll();
-
-
-/* =========================================================
-   COUNTER ANIMATION
-========================================================= */
-
-function animateCounter(element, target) {
-
-    let current = 0;
-
-    const increment =
-        Math.max(1, Math.ceil(target / 100));
-
-    const timer =
-        setInterval(() => {
-
-            current += increment;
-
-            if (current >= target) {
-
-                current = target;
-
-                clearInterval(timer);
-
-            }
-
-            element.textContent =
-                current.toLocaleString();
-
-        }, 20);
-
-}
-
-
-const counters =
-    document.querySelectorAll("[data-count]");
-
-let countersStarted = false;
-
-
-function startCounters() {
-
-    if (countersStarted) return;
-
-    counters.forEach((counter) => {
-
-        const target =
-            parseInt(
-                counter.getAttribute("data-count"),
-                10
-            );
-
-        if (!isNaN(target)) {
-
-            animateCounter(
-                counter,
-                target
-            );
-
-        }
-
-    });
-
-    countersStarted = true;
-
-}
-
-
-const statsSection =
-    document.querySelector(".hero-stats");
-
-
-if (statsSection) {
-
-    const counterObserver =
-        new IntersectionObserver(
-            (entries) => {
-
-                entries.forEach((entry) => {
-
-                    if (entry.isIntersecting) {
-
-                        startCounters();
-
-                        counterObserver.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.3
-            }
-        );
-
-    counterObserver.observe(statsSection);
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-function showToast(message) {
-
-    const toast =
-        document.getElementById("toast");
-
-    const toastText =
-        document.getElementById("toastText");
-
-    if (!toast) {
-
-        console.log(message);
-
-        return;
-
-    }
-
-    if (toastText) {
-
-        toastText.textContent =
-            message;
-
-    } else {
-
-        toast.textContent =
-            message;
-
-    }
-
-    toast.style.display = "flex";
-
-    toast.classList.add("show");
-
-
-    setTimeout(() => {
-
-        toast.classList.remove("show");
-
-        toast.style.display = "none";
-
-    }, 4000);
-
-}
-
-
-/* =========================================================
-   CLOSE TOAST
-========================================================= */
-
-function closeMessage() {
-
-    const toast =
-        document.getElementById("toast");
-
-    if (toast) {
-
-        toast.classList.remove("show");
-
-        toast.style.display = "none";
-
-    }
-
-}
-
-
-/* =========================================================
-   DEMO DASHBOARD BUTTON
-========================================================= */
-
-function showLoginMessage() {
-
-    showToast(
-        "Please sign in with Google first to continue."
-    );
-
-}
-
-
-/* =========================================================
-   CONTACT FORM
-========================================================= */
-
-const contactForm =
-    document.getElementById("contactForm");
-
-
-if (contactForm) {
-
-    contactForm.addEventListener(
-        "submit",
-        (event) => {
-
-            event.preventDefault();
-
-            const name =
-                document.getElementById("name")?.value.trim();
-
-            const email =
-                document.getElementById("email")?.value.trim();
-
-            const message =
-                document.getElementById("message")?.value.trim();
-
-
-            if (!name || !email || !message) {
-
-                showToast(
-                    "Please complete all contact fields."
-                );
-
-                return;
-
-            }
-
-
-            showToast(
-                "Thank you! Your message is ready to be sent."
-            );
-
-
-            contactForm.reset();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ANALYSIS FORM
-========================================================= */
-
-const analysisForm =
-    document.getElementById("analysisForm");
-
-
-if (analysisForm) {
-
-    analysisForm.addEventListener(
-        "submit",
-        (event) => {
-
-            event.preventDefault();
-
-            showToast(
-                "Your agricultural data is ready for AI analysis."
-            );
+        if (!user) {
 
             console.log(
-                "Analysis form submitted."
+                "No user session found."
             );
+
+            window.location.href = "index.html";
+
+            return;
+
+        }
+
+
+        console.log(
+            "Logged in user:",
+            user
+        );
+
+
+        /* =================================================
+           USER INFORMATION
+        ================================================= */
+
+        const metadata =
+            user.user_metadata || {};
+
+
+        const fullName =
+            metadata.full_name ||
+            metadata.name ||
+            user.email
+                ?.split("@")[0] ||
+            "Farmer";
+
+
+        const email =
+            user.email ||
+            "No email available";
+
+
+        const avatarUrl =
+            metadata.avatar_url ||
+            metadata.picture ||
+            "";
+
+
+        const provider =
+            user.app_metadata?.provider ||
+            "Email";
+
+
+        /* =================================================
+           HEADER PROFILE
+        ================================================= */
+
+        if (profileName) {
+
+            profileName.textContent =
+                fullName;
+
+        }
+
+
+        if (profileEmail) {
+
+            profileEmail.textContent =
+                email;
+
+        }
+
+
+        if (welcomeName) {
+
+            welcomeName.textContent =
+                fullName.split(" ")[0];
+
+        }
+
+
+        /* =================================================
+           PROFILE DETAILS
+        ================================================= */
+
+        if (userFullName) {
+
+            userFullName.textContent =
+                fullName;
+
+        }
+
+
+        if (userEmail) {
+
+            userEmail.textContent =
+                email;
+
+        }
+
+
+        if (userProvider) {
+
+            userProvider.textContent =
+                provider
+                    .charAt(0)
+                    .toUpperCase() +
+                provider.slice(1);
+
+        }
+
+
+        if (userId) {
+
+            userId.textContent =
+                user.id;
+
+        }
+
+
+        /* =================================================
+           PROFILE AVATAR
+        ================================================= */
+
+        if (profileAvatar) {
+
+            if (avatarUrl) {
+
+                profileAvatar.innerHTML = `
+                    <img
+                        src="${avatarUrl}"
+                        alt="${fullName}"
+                        referrerpolicy="no-referrer"
+                    >
+                `;
+
+            } else {
+
+                profileAvatar.textContent =
+                    getInitials(fullName);
+
+            }
+
+        }
+
+
+        /* =================================================
+           OPTIONAL: ACCOUNT CREATED DATE
+        ================================================= */
+
+        const accountCreated =
+            document.getElementById(
+                "accountCreated"
+            );
+
+
+        if (accountCreated) {
+
+            accountCreated.textContent =
+                formatDate(
+                    user.created_at
+                );
+
+        }
+
+
+        /* =================================================
+           OPTIONAL: LAST LOGIN
+        ================================================= */
+
+        const lastLogin =
+            document.getElementById(
+                "lastLogin"
+            );
+
+
+        if (lastLogin) {
+
+            lastLogin.textContent =
+                formatDate(
+                    user.last_sign_in_at
+                );
+
+        }
+
+
+        hideLoader();
+
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected profile error:",
+            error
+        );
+
+        hideLoader();
+
+        alert(
+            "Unable to load your profile. Please sign in again."
+        );
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutUser() {
+
+    const confirmed = confirm(
+        "Are you sure you want to sign out?"
+    );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        if (logoutButton) {
+
+            logoutButton.disabled = true;
+
+            logoutButton.textContent =
+                "Signing out...";
+
+        }
+
+
+        const {
+            error
+        } = await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        console.log(
+            "User signed out successfully."
+        );
+
+
+        window.location.href =
+            "index.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "Logout error:",
+            error.message
+        );
+
+
+        alert(
+            "Unable to sign out. Please try again."
+        );
+
+
+        if (logoutButton) {
+
+            logoutButton.disabled = false;
+
+            logoutButton.textContent =
+                "Sign Out";
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON EVENT
+========================================================= */
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        logoutUser
+    );
+
+}
+
+
+/* =========================================================
+   DASHBOARD BUTTON
+========================================================= */
+
+if (dashboardButton) {
+
+    dashboardButton.addEventListener(
+        "click",
+        () => {
+
+            /*
+            You can change dashboard.html
+            to your actual dashboard page.
+            */
+
+            window.location.href =
+                "dashboard.html";
 
         }
     );
@@ -619,64 +500,52 @@ if (analysisForm) {
 
 
 /* =========================================================
-   GOOGLE IDENTITY SERVICES CHECK
+   AUTH STATE CHANGE
 ========================================================= */
 
-window.addEventListener("load", () => {
-
-    const googleButton =
-        document.querySelector(".g_id_signin");
-
-    if (!googleButton) {
+supabaseClient.auth.onAuthStateChange(
+    (event, session) => {
 
         console.log(
-            "Google Sign-In button was not found."
+            "Auth event:",
+            event
         );
 
-        return;
+
+        /*
+        If user signs out,
+        return to login page.
+        */
+
+        if (
+            event === "SIGNED_OUT" ||
+            !session
+        ) {
+
+            console.log(
+                "Session ended."
+            );
+
+        }
 
     }
-
-    console.log(
-        "Google Sign-In component detected."
-    );
-
-});
-
-
-/* =========================================================
-   SECURITY NOTE
-========================================================= */
-
-/*
-IMPORTANT:
-
-Do NOT put:
-
-- Google Client Secret
-- Database password
-- API secret key
-- Private key
-
-inside this JavaScript file.
-
-Only public configuration such as
-Google Client ID / Supabase publishable key
-can be used on the frontend when appropriate.
-
-Never store user passwords in localStorage.
-*/
-
-
-/* =========================================================
-   SYSTEM MESSAGE
-========================================================= */
-
-console.log(
-    "%cAI Farmer Credit Scorer",
-    "font-size:20px;font-weight:bold;"
 );
 
-console.log(
-    "Agricultural AI system initialized successfully."
+
+/* =========================================================
+   PAGE INITIALIZATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        console.log(
+            "AI Farmer Credit Scorer Profile Loaded"
+        );
+
+
+        loadUserProfile();
+
+    }
 );
