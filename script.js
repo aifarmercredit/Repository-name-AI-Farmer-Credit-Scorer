@@ -21,10 +21,10 @@
 */
 
 const SUPABASE_URL =
-    "PASTE_YOUR_SUPABASE_URL";
+    ""https://rronyxeiruuaizjinsvz.supabase.co";
 
 const SUPABASE_ANON_KEY =
-    "PASTE_YOUR_SUPABASE_ANON_KEY";
+    "sb_publishable_C_WZDTvi8dZwZAgKQh6ANA_vJDd6LKH";
 
 
 /* =====================================================
