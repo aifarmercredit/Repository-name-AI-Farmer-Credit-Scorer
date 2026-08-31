@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AI Farmer Credit Scorer | Smart Agricultural Finance</title>
+    <title>AI Farmer Credit Scorer</title>
 
-    <meta name="description"
-        content="AI-powered agricultural credit assessment platform helping farmers understand credit readiness and financial opportunities.">
+    <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
+    <!-- ================= NAVBAR ================= -->
 
     <header class="navbar">
 
         <a href="#home" class="brand">
 
-            <div class="brand-icon">
-                <i class="fa-solid fa-seedling"></i>
-            </div>
+            <img
+                src="assets/logo.jpg"
+                alt="AI Farmer Credit Scorer Logo"
+                class="logo-image"
+            >
 
             <div class="brand-text">
                 <strong>AI Farmer</strong>
@@ -43,1384 +41,752 @@
         </a>
 
 
-        <nav class="nav-menu" id="navMenu">
+        <nav class="nav-links">
 
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#features" class="nav-link">Features</a>
-            <a href="#how-it-works" class="nav-link">How It Works</a>
-            <a href="#about" class="nav-link">About</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#home">Home</a>
+
+            <a href="#assessment">Assessment</a>
+
+            <a href="#how-it-works">How It Works</a>
+
+            <a href="#contact">Contact</a>
 
         </nav>
 
 
-        <div class="nav-actions">
+        <button class="nav-button"
+            onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
 
-            <button
-                type="button"
-                class="btn btn-login open-auth"
-                data-mode="login">
-
-                Sign In
-
-            </button>
-
-
-            <button
-                type="button"
-                class="btn btn-primary open-auth"
-                data-mode="signup">
-
-                Get Started
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </button>
-
-        </div>
-
-
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            type="button"
-            aria-label="Open menu">
-
-            <i class="fa-solid fa-bars"></i>
+            Start Assessment
 
         </button>
 
     </header>
 
 
+    <!-- ================= HERO ================= -->
 
-    <!-- =========================
-         HERO
-    ========================== -->
+    <section class="hero" id="home">
 
-    <main>
+        <div class="hero-content">
 
-        <section class="hero" id="home">
-
-            <div class="hero-background"></div>
-
-            <div class="hero-container">
-
-                <div class="hero-content">
-
-                    <div class="hero-badge">
-
-                        <span class="badge-dot"></span>
-
-                        AI-Powered Agricultural Finance
-
-                    </div>
-
-
-                    <h1>
-
-                        Smarter Credit Decisions
-                        <span>For Farmers.</span>
-
-                    </h1>
-
-
-                    <p class="hero-description">
-
-                        AI Farmer Credit Scorer helps farmers understand
-                        their credit readiness through intelligent data
-                        analysis and simple financial insights.
-
-                    </p>
-
-
-                    <div class="hero-buttons">
-
-                        <button
-                            type="button"
-                            class="btn btn-primary btn-large open-auth"
-                            data-mode="signup">
-
-                            Start Free Assessment
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-
-
-                        <a
-                            href="#how-it-works"
-                            class="btn btn-outline btn-large">
-
-                            <i class="fa-solid fa-circle-play"></i>
-
-                            How It Works
-
-                        </a>
-
-                    </div>
-
-
-                    <div class="hero-trust">
-
-                        <div class="trust-item">
-
-                            <i class="fa-solid fa-shield-halved"></i>
-
-                            <span>Secure Data</span>
-
-                        </div>
-
-                        <div class="trust-item">
-
-                            <i class="fa-solid fa-brain"></i>
-
-                            <span>AI Powered</span>
-
-                        </div>
-
-                        <div class="trust-item">
-
-                            <i class="fa-solid fa-leaf"></i>
-
-                            <span>Farmer Focused</span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- HERO DASHBOARD -->
-
-                <div class="hero-visual">
-
-                    <div class="dashboard-card">
-
-                        <div class="dashboard-header">
-
-                            <div>
-
-                                <p>Credit Assessment</p>
-
-                                <h3>Your AI Score</h3>
-
-                            </div>
-
-
-                            <div class="ai-status">
-
-                                <span class="pulse"></span>
-
-                                AI Active
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="score-area">
-
-                            <div class="score-circle">
-
-                                <div class="score-inner">
-
-                                    <strong>782</strong>
-
-                                    <span>Credit Score</span>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="score-status">
-
-                                <span class="status-good">
-
-                                    <i class="fa-solid fa-arrow-trend-up"></i>
-
-                                    Excellent
-
-                                </span>
-
-                                <p>
-                                    Your financial profile shows
-                                    strong credit readiness.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="dashboard-divider"></div>
-
-
-                        <div class="metrics-grid">
-
-                            <div class="metric-card">
-
-                                <div class="metric-icon income">
-                                    <i class="fa-solid fa-chart-line"></i>
-                                </div>
-
-                                <div>
-
-                                    <span>Farm Income</span>
-
-                                    <strong>Strong</strong>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="metric-card">
-
-                                <div class="metric-icon stability">
-                                    <i class="fa-solid fa-shield"></i>
-                                </div>
-
-                                <div>
-
-                                    <span>Stability</span>
-
-                                    <strong>High</strong>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="metric-card">
-
-                                <div class="metric-icon risk">
-                                    <i class="fa-solid fa-chart-pie"></i>
-                                </div>
-
-                                <div>
-
-                                    <span>Risk Level</span>
-
-                                    <strong>Low</strong>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="metric-card">
-
-                                <div class="metric-icon growth">
-                                    <i class="fa-solid fa-seedling"></i>
-                                </div>
-
-                                <div>
-
-                                    <span>Growth</span>
-
-                                    <strong>Positive</strong>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="ai-analysis">
-
-                            <div class="analysis-icon">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            </div>
-
-                            <div>
-
-                                <strong>AI Recommendation</strong>
-
-                                <p>
-                                    Your current profile indicates
-                                    good potential for agricultural
-                                    financing opportunities.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="floating-card floating-top">
-
-                        <i class="fa-solid fa-sparkles"></i>
-
-                        <div>
-
-                            <span>AI Analysis</span>
-
-                            <strong>Completed</strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="floating-card floating-bottom">
-
-                        <div class="mini-score">
-                            782
-                        </div>
-
-                        <div>
-
-                            <span>Credit Readiness</span>
-
-                            <strong>Excellent</strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div class="hero-badge">
+                <span></span>
+                AI-Powered Agricultural Finance
             </div>
 
-        </section>
 
+            <h1>
 
+                Smarter Credit Decisions
+                <span>For Farmers.</span>
 
-        <!-- =========================
-             STATS
-        ========================== -->
+            </h1>
 
-        <section class="stats-section">
 
-            <div class="stats-container">
+            <p>
 
-                <div class="stat-item">
+                AI Farmer Credit Scorer helps farmers understand
+                their credit readiness through intelligent agricultural
+                and financial data analysis.
 
-                    <div class="stat-icon">
+            </p>
 
-                        <i class="fa-solid fa-brain"></i>
 
-                    </div>
+            <div class="hero-buttons">
 
-                    <div>
+                <button
+                    class="primary-button"
+                    onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
 
-                        <strong>AI Powered</strong>
+                    Start Free Assessment →
 
-                        <span>Intelligent analysis</span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-item">
-
-                    <div class="stat-icon">
-
-                        <i class="fa-solid fa-bolt"></i>
-
-                    </div>
-
-                    <div>
-
-                        <strong>Fast Insights</strong>
-
-                        <span>Quick assessment</span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-item">
-
-                    <div class="stat-icon">
-
-                        <i class="fa-solid fa-lock"></i>
-
-                    </div>
-
-                    <div>
-
-                        <strong>Secure</strong>
-
-                        <span>Privacy focused</span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="stat-item">
-
-                    <div class="stat-icon">
-
-                        <i class="fa-solid fa-wheat-awn"></i>
-
-                    </div>
-
-                    <div>
-
-                        <strong>Built for Farmers</strong>
-
-                        <span>Agriculture focused</span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             FEATURES
-        ========================== -->
-
-        <section class="section features-section" id="features">
-
-            <div class="section-container">
-
-                <div class="section-heading">
-
-                    <div class="section-tag">
-
-                        Platform Features
-
-                    </div>
-
-
-                    <h2>
-
-                        Everything You Need for
-                        <span>Smarter Credit Insights</span>
-
-                    </h2>
-
-
-                    <p>
-
-                        Our platform combines artificial intelligence
-                        and agricultural understanding to provide
-                        simple and useful financial insights.
-
-                    </p>
-
-                </div>
-
-
-                <div class="features-grid">
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon">
-
-                            <i class="fa-solid fa-brain"></i>
-
-                        </div>
-
-                        <h3>AI Credit Analysis</h3>
-
-                        <p>
-
-                            Intelligent models analyze financial
-                            information and generate understandable
-                            credit readiness insights.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon">
-
-                            <i class="fa-solid fa-chart-column"></i>
-
-                        </div>
-
-                        <h3>Clear Score Insights</h3>
-
-                        <p>
-
-                            Understand your credit readiness through
-                            simple scores, categories, and explanations.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon">
-
-                            <i class="fa-solid fa-lightbulb"></i>
-
-                        </div>
-
-                        <h3>Smart Recommendations</h3>
-
-                        <p>
-
-                            Receive useful suggestions that can help
-                            strengthen your financial profile over time.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon">
-
-                            <i class="fa-solid fa-shield-halved"></i>
-
-                        </div>
-
-                        <h3>Privacy Focused</h3>
-
-                        <p>
-
-                            Your account and assessment information
-                            are handled with security and privacy
-                            in mind.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon">
-
-                            <i class="fa-solid fa-seedling"></i>
-
-                        </div>
-
-                        <h3>Farmer Focused</h3>
-
-                        <p>
-
-                            Designed around agricultural and farming
-                            financial situations rather than generic
-                            financial scoring.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon">
-
-                            <i class="fa-solid fa-gauge-high"></i>
-
-                        </div>
-
-                        <h3>Easy to Use</h3>
-
-                        <p>
-
-                            A simple and clear experience designed
-                            to make financial insights easier to
-                            understand.
-
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             HOW IT WORKS
-        ========================== -->
-
-        <section
-            class="section how-section"
-            id="how-it-works">
-
-            <div class="section-container">
-
-                <div class="section-heading center">
-
-                    <div class="section-tag">
-
-                        Simple Process
-
-                    </div>
-
-                    <h2>
-
-                        Get Your Insights in
-                        <span>Three Simple Steps</span>
-
-                    </h2>
-
-                </div>
-
-
-                <div class="steps-grid">
-
-
-                    <article class="step-card">
-
-                        <div class="step-number">
-                            01
-                        </div>
-
-                        <div class="step-icon">
-
-                            <i class="fa-solid fa-user-plus"></i>
-
-                        </div>
-
-                        <h3>Create Account</h3>
-
-                        <p>
-
-                            Create your secure account and access
-                            the AI Farmer Credit Scorer platform.
-
-                        </p>
-
-                    </article>
-
-
-                    <div class="step-line"></div>
-
-
-                    <article class="step-card">
-
-                        <div class="step-number">
-                            02
-                        </div>
-
-                        <div class="step-icon">
-
-                            <i class="fa-solid fa-clipboard-list"></i>
-
-                        </div>
-
-                        <h3>Provide Information</h3>
-
-                        <p>
-
-                            Enter the financial and agricultural
-                            information required for assessment.
-
-                        </p>
-
-                    </article>
-
-
-                    <div class="step-line"></div>
-
-
-                    <article class="step-card">
-
-                        <div class="step-number">
-                            03
-                        </div>
-
-                        <div class="step-icon">
-
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                        </div>
-
-                        <h3>Receive AI Insights</h3>
-
-                        <p>
-
-                            Get a clear assessment and useful
-                            recommendations from the AI system.
-
-                        </p>
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             ABOUT
-        ========================== -->
-
-        <section class="section about-section" id="about">
-
-            <div class="section-container about-grid">
-
-                <div class="about-visual">
-
-                    <div class="about-main-card">
-
-                        <div class="about-image-placeholder">
-
-                            <i class="fa-solid fa-wheat-awn"></i>
-
-                        </div>
-
-                        <div class="about-chart">
-
-                            <div class="chart-header">
-
-                                <span>Financial Growth</span>
-
-                                <strong>+24%</strong>
-
-                            </div>
-
-                            <div class="chart-bars">
-
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="about-floating-card">
-
-                        <i class="fa-solid fa-circle-check"></i>
-
-                        <div>
-
-                            <strong>Smart Insights</strong>
-
-                            <span>Powered by AI</span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="about-content">
-
-                    <div class="section-tag">
-
-                        About the Platform
-
-                    </div>
-
-
-                    <h2>
-
-                        Technology That Helps
-                        <span>Agriculture Grow.</span>
-
-                    </h2>
-
-
-                    <p>
-
-                        AI Farmer Credit Scorer is designed to
-                        explore how artificial intelligence can
-                        support smarter agricultural financial
-                        decision-making.
-
-                    </p>
-
-
-                    <p>
-
-                        The platform transforms financial and
-                        agricultural information into clear,
-                        understandable insights that can help users
-                        better understand their credit readiness.
-
-                    </p>
-
-
-                    <div class="about-list">
-
-                        <div>
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            <span>
-                                AI-powered financial analysis
-                            </span>
-
-                        </div>
-
-                        <div>
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            <span>
-                                Clear and simple credit insights
-                            </span>
-
-                        </div>
-
-                        <div>
-
-                            <i class="fa-solid fa-circle-check"></i>
-
-                            <span>
-                                Designed with farmers in mind
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        class="btn btn-primary open-auth"
-                        type="button"
-                        data-mode="signup">
-
-                        Get Started Free
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             CTA
-        ========================== -->
-
-        <section class="cta-section">
-
-            <div class="cta-container">
-
-                <div>
-
-                    <div class="section-tag light">
-
-                        Start Today
-
-                    </div>
-
-                    <h2>
-
-                        Ready to Explore Your
-                        <span>Credit Readiness?</span>
-
-                    </h2>
-
-                    <p>
-
-                        Create your account and start exploring
-                        AI-powered agricultural financial insights.
-
-                    </p>
-
-                </div>
+                </button>
 
 
                 <button
-                    class="btn btn-light btn-large open-auth"
-                    type="button"
-                    data-mode="signup">
+                    class="secondary-button"
+                    onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
 
-                    Create Free Account
-
-                    <i class="fa-solid fa-arrow-right"></i>
+                    How It Works
 
                 </button>
 
             </div>
 
-        </section>
 
+            <div class="hero-features">
 
+                <div>✓ Secure Data</div>
 
-        <!-- =========================
-             CONTACT
-        ========================== -->
+                <div>✓ AI Powered</div>
 
-        <section
-            class="section contact-section"
-            id="contact">
-
-            <div class="section-container">
-
-                <div class="section-heading center">
-
-                    <div class="section-tag">
-
-                        Contact Us
-
-                    </div>
-
-                    <h2>
-
-                        Let's Build Smarter
-                        <span>Agricultural Finance.</span>
-
-                    </h2>
-
-                </div>
-
-
-                <div class="contact-grid">
-
-                    <div class="contact-info-card">
-
-                        <h3>Get in Touch</h3>
-
-                        <p>
-
-                            Have questions about the platform?
-                            Send us a message.
-
-                        </p>
-
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-
-                                <i class="fa-solid fa-envelope"></i>
-
-                            </div>
-
-                            <div>
-
-                                <span>Email</span>
-
-                                <strong>
-                                    info@aifarmercredit.com
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-
-                                <i class="fa-solid fa-leaf"></i>
-
-                            </div>
-
-                            <div>
-
-                                <span>Focus</span>
-
-                                <strong>
-                                    Agriculture & AI
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <form class="contact-form">
-
-                        <div class="form-row">
-
-                            <div class="form-group">
-
-                                <label for="contactName">
-
-                                    Your Name
-
-                                </label>
-
-                                <input
-                                    id="contactName"
-                                    type="text"
-                                    placeholder="Enter your name"
-                                    required>
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="contactEmail">
-
-                                    Email Address
-
-                                </label>
-
-                                <input
-                                    id="contactEmail"
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    required>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="contactMessage">
-
-                                Message
-
-                            </label>
-
-                            <textarea
-                                id="contactMessage"
-                                rows="5"
-                                placeholder="Write your message..."
-                                required></textarea>
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary">
-
-                            Send Message
-
-                            <i class="fa-solid fa-paper-plane"></i>
-
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer class="footer">
-
-        <div class="footer-container">
-
-            <div class="footer-brand">
-
-                <a href="#home" class="brand">
-
-                    <div class="brand-icon">
-
-                        <i class="fa-solid fa-seedling"></i>
-
-                    </div>
-
-                    <div class="brand-text">
-
-                        <strong>AI Farmer</strong>
-
-                        <span>Credit Scorer</span>
-
-                    </div>
-
-                </a>
-
-
-                <p>
-
-                    AI-powered insights for smarter
-                    agricultural financial decisions.
-
-                </p>
-
-            </div>
-
-
-            <div class="footer-links">
-
-                <div>
-
-                    <h4>Platform</h4>
-
-                    <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#about">About</a>
-
-                </div>
-
-
-                <div>
-
-                    <h4>Account</h4>
-
-                    <button
-                        class="footer-auth open-auth"
-                        data-mode="login">
-
-                        Sign In
-
-                    </button>
-
-                    <button
-                        class="footer-auth open-auth"
-                        data-mode="signup">
-
-                        Create Account
-
-                    </button>
-
-                </div>
-
-
-                <div>
-
-                    <h4>Legal</h4>
-
-                    <a href="privacy.html">
-                        Privacy Policy
-                    </a>
-
-                    <a href="terms.html">
-                        Terms of Service
-                    </a>
-
-                </div>
+                <div>✓ Farmer Focused</div>
 
             </div>
 
         </div>
 
 
-        <div class="footer-bottom">
+        <!-- CREDIT SCORE PREVIEW -->
+
+        <div class="score-card">
+
+            <div class="card-top">
+
+                <div>
+
+                    <span class="small-title">
+                        Credit Assessment
+                    </span>
+
+                    <h3>Your AI Score</h3>
+
+                </div>
+
+
+                <div class="ai-status">
+                    <span></span>
+                    AI Active
+                </div>
+
+            </div>
+
+
+            <div class="score-main">
+
+                <div class="score-circle">
+
+                    <strong>782</strong>
+
+                    <span>Credit Score</span>
+
+                </div>
+
+
+                <div class="score-info">
+
+                    <h3>Excellent</h3>
+
+                    <p>
+                        Your financial profile shows
+                        strong credit readiness.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="score-divider"></div>
+
+
+            <div class="score-grid">
+
+                <div class="score-item">
+
+                    <span class="icon-box">💰</span>
+
+                    <div>
+
+                        <small>Farm Income</small>
+
+                        <strong>Strong</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span class="icon-box">📊</span>
+
+                    <div>
+
+                        <small>Stability</small>
+
+                        <strong>High</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span class="icon-box">🛡</span>
+
+                    <div>
+
+                        <small>Risk Level</small>
+
+                        <strong>Low</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score-item">
+
+                    <span class="icon-box">📈</span>
+
+                    <div>
+
+                        <small>Growth</small>
+
+                        <strong>Positive</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <strong>AI Recommendation</strong>
+
+                <p>
+                    Your current profile indicates good potential
+                    for agricultural financing opportunities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ASSESSMENT ================= -->
+
+    <section class="assessment-section" id="assessment">
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                FREE CREDIT ASSESSMENT
+            </span>
+
+            <h2>Tell Us About Your Farm</h2>
 
             <p>
 
-                © 2026 AI Farmer Credit Scorer.
-                All rights reserved.
+                Complete the form below and receive an AI-powered
+                credit readiness assessment.
 
             </p>
 
-
-            <div>
-
-                <a href="privacy.html">
-                    Privacy
-                </a>
-
-                <a href="terms.html">
-                    Terms
-                </a>
-
-            </div>
-
         </div>
 
-    </footer>
+
+        <div class="form-container">
+
+            <form id="assessmentForm">
+
+                <!-- PERSONAL INFORMATION -->
+
+                <h3 class="form-title">
+                    Personal Information
+                </h3>
 
 
+                <div class="form-grid">
 
-    <!-- =========================
-         AUTH MODAL
-    ========================== -->
+                    <div class="input-group">
 
-    <div
-        class="auth-modal"
-        id="authModal">
+                        <label>Full Name *</label>
 
-        <div class="auth-box">
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Enter your full name"
+                            required
+                        >
 
-            <button
-                type="button"
-                class="close-modal"
-                aria-label="Close">
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
+                    </div>
 
 
-            <div class="auth-header">
+                    <div class="input-group">
 
-                <div class="auth-logo">
+                        <label>Email Address *</label>
 
-                    <i class="fa-solid fa-seedling"></i>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="example@email.com"
+                            required
+                        >
 
-                </div>
-
-                <h2>Welcome Back</h2>
-
-                <p>
-                    Sign in to access your
-                    AI credit assessment.
-                </p>
-
-            </div>
+                    </div>
 
 
-            <button
-                type="button"
-                class="google-btn">
+                    <div class="input-group">
 
-                <i class="fa-brands fa-google"></i>
+                        <label>Phone Number *</label>
 
-                Continue with Google
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+251..."
+                            required
+                        >
 
-            </button>
-
-
-            <div class="auth-divider">
-
-                <span></span>
-
-                <small>OR</small>
-
-                <span></span>
-
-            </div>
+                    </div>
 
 
-            <form id="authForm">
+                    <div class="input-group">
 
-                <div class="form-group">
+                        <label>Location *</label>
 
-                    <label for="authEmail">
+                        <input
+                            type="text"
+                            id="location"
+                            placeholder="City / Region"
+                            required
+                        >
 
-                        Email Address
-
-                    </label>
-
-                    <input
-                        type="email"
-                        id="authEmail"
-                        placeholder="you@example.com"
-                        autocomplete="email"
-                        required>
+                    </div>
 
                 </div>
 
 
-                <div class="form-group">
+                <!-- FARM INFORMATION -->
 
-                    <label for="authPassword">
+                <h3 class="form-title">
+                    Farm Information
+                </h3>
 
-                        Password
 
-                    </label>
+                <div class="form-grid">
 
-                    <input
-                        type="password"
-                        id="authPassword"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required>
+                    <div class="input-group">
+
+                        <label>Farm Type *</label>
+
+                        <select id="farmType" required>
+
+                            <option value="">
+                                Select farm type
+                            </option>
+
+                            <option value="Crop Farming">
+                                Crop Farming
+                            </option>
+
+                            <option value="Livestock">
+                                Livestock
+                            </option>
+
+                            <option value="Mixed Farming">
+                                Mixed Farming
+                            </option>
+
+                            <option value="Dairy Farming">
+                                Dairy Farming
+                            </option>
+
+                            <option value="Poultry">
+                                Poultry
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Farm Size (Hectares) *</label>
+
+                        <input
+                            type="number"
+                            id="farmSize"
+                            min="0"
+                            placeholder="Example: 5"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Monthly / Annual Farm Income *</label>
+
+                        <input
+                            type="number"
+                            id="farmIncome"
+                            min="0"
+                            placeholder="Enter income"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Income Frequency *</label>
+
+                        <select id="incomeFrequency" required>
+
+                            <option value="">
+                                Select frequency
+                            </option>
+
+                            <option value="Monthly">
+                                Monthly
+                            </option>
+
+                            <option value="Yearly">
+                                Yearly
+                            </option>
+
+                        </select>
+
+                    </div>
 
                 </div>
 
 
-                <div class="auth-status"></div>
+                <!-- CREDIT INFORMATION -->
+
+                <h3 class="form-title">
+                    Credit Information
+                </h3>
+
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+
+                        <label>Loan Amount Needed *</label>
+
+                        <input
+                            type="number"
+                            id="loanAmount"
+                            min="0"
+                            placeholder="Enter loan amount"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Previous Loan History *</label>
+
+                        <select id="loanHistory" required>
+
+                            <option value="">
+                                Select option
+                            </option>
+
+                            <option value="No Previous Loan">
+                                No Previous Loan
+                            </option>
+
+                            <option value="Paid On Time">
+                                Paid Previous Loan On Time
+                            </option>
+
+                            <option value="Late Payments">
+                                Previous Late Payments
+                            </option>
+
+                            <option value="Currently Paying">
+                                Currently Paying Loan
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Monthly Farm Expenses *</label>
+
+                        <input
+                            type="number"
+                            id="expenses"
+                            min="0"
+                            placeholder="Enter monthly expenses"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Repayment Ability *</label>
+
+                        <select id="repaymentAbility" required>
+
+                            <option value="">
+                                Select option
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
 
 
                 <button
                     type="submit"
-                    class="auth-submit btn btn-primary">
+                    class="submit-button"
+                    id="submitButton">
 
-                    Sign In
+                    Analyze My Credit Score →
+
+                </button>
+
+
+                <p class="form-message" id="formMessage"></p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RESULT ================= -->
+
+    <section
+        class="result-section"
+        id="resultSection"
+        style="display:none"
+    >
+
+        <div class="result-card">
+
+            <span class="section-tag">
+                AI ASSESSMENT RESULT
+            </span>
+
+            <h2>Your Credit Assessment</h2>
+
+
+            <div class="result-score">
+
+                <strong id="resultScore">
+                    700
+                </strong>
+
+                <span>Credit Score</span>
+
+            </div>
+
+
+            <h3 id="resultStatus">
+                Good Credit Readiness
+            </h3>
+
+
+            <p id="resultDescription">
+
+                Your agricultural and financial information
+                has been analyzed.
+
+            </p>
+
+
+            <button
+                class="secondary-button"
+                onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
+
+                Submit Another Assessment
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="how-section" id="how-it-works">
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                SIMPLE PROCESS
+            </span>
+
+            <h2>How It Works</h2>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <span>01</span>
+
+                <h3>Enter Information</h3>
+
+                <p>
+                    Tell us about yourself,
+                    your farm and financial situation.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <span>02</span>
+
+                <h3>AI Analysis</h3>
+
+                <p>
+                    Our system analyzes your
+                    agricultural credit information.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <span>03</span>
+
+                <h3>Get Your Score</h3>
+
+                <p>
+                    Receive your estimated credit
+                    readiness score and insights.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="contact-section" id="contact">
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                CONTACT US
+            </span>
+
+            <h2>Have Questions?</h2>
+
+            <p>
+                Send us a message and we will get back to you.
+            </p>
+
+        </div>
+
+
+        <div class="contact-container">
+
+            <form id="contactForm">
+
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Your Name"
+                    required
+                >
+
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Your Email"
+                    required
+                >
+
+
+                <textarea
+                    id="contactMessage"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="submit-button">
+
+                    Send Message →
 
                 </button>
 
             </form>
 
+        </div>
 
-            <div class="auth-switch">
+    </section>
 
-                <span>
-                    Don't have an account?
-                </span>
 
-                <button type="button">
+    <!-- ================= FOOTER ================= -->
 
-                    Create Account
+    <footer>
 
-                </button>
+        <div class="footer-brand">
+
+            <img
+                src="assets/logo.jpg"
+                alt="AI Farmer Credit Scorer"
+            >
+
+            <div>
+
+                <strong>AI Farmer Credit Scorer</strong>
+
+                <p>
+                    Smarter agricultural credit decisions.
+                </p>
 
             </div>
 
         </div>
 
-    </div>
+
+        <p class="copyright">
+
+            © 2026 AI Farmer Credit Scorer.
+            All rights reserved.
+
+        </p>
+
+    </footer>
 
 
-
-    <!-- =========================
-         TOAST
-    ========================== -->
-
-    <div class="toast">
-
-        <span></span>
-
-        <button
-            type="button"
-            aria-label="Close notification">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-    </div>
-
-
-
-    <!-- =========================
-         SCRIPTS
-    ========================== -->
-
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Main Script -->
     <script src="script.js"></script>
 
 </body>
