@@ -1,8 +1,11 @@
-"use strict";
+/* =========================================================
+AI FARMER CREDIT SCORER
+COMPLETE SCRIPT.JS
+========================================================= */
 
-/* =====================================================
-SUPABASE
-===================================================== */
+/* =========================================================
+SUPABASE CONFIGURATION
+========================================================= */
 
 const SUPABASE_URL =
 "https://xcevtpkrasvevwyvvdjq.supabase.co";
@@ -16,58 +19,97 @@ SUPABASE_URL,
 SUPABASE_PUBLISHABLE_KEY
 );
 
-/* =====================================================
-ELEMENTS
-===================================================== */
+console.log("Supabase initialized successfully.");
 
-const loader = document.getElementById("loader");
+/* =========================================================
+DOM ELEMENTS
+========================================================= */
 
-const navbar = document.getElementById("navbar");
+const loader =
+document.getElementById("loader");
 
-const menuBtn = document.getElementById("menuBtn");
+const navbar =
+document.getElementById("navbar");
 
-const navMenu = document.getElementById("navMenu");
+const navMenu =
+document.getElementById("navMenu");
 
-const loginCard = document.getElementById("loginCard");
+const menuToggle =
+document.getElementById("menuToggle");
 
-const registerCard = document.getElementById("registerCard");
+const navLogin =
+document.getElementById("navLogin");
 
-const dashboardCard = document.getElementById("dashboardCard");
+const navRegister =
+document.getElementById("navRegister");
 
-const loginForm = document.getElementById("loginForm");
+const startAnalysis =
+document.getElementById("startAnalysis");
 
-const registerForm = document.getElementById("registerForm");
+const howItWorksBtn =
+document.getElementById("howItWorksBtn");
 
-const googleLogin = document.getElementById("googleLogin");
+const ctaButton =
+document.getElementById("ctaButton");
 
-const googleRegister = document.getElementById("googleRegister");
+const googleLoginBtn =
+document.getElementById("googleLoginBtn");
 
-const logoutBtn = document.getElementById("logoutBtn");
+const emailLoginBtn =
+document.getElementById("emailLoginBtn");
 
-const showRegister = document.getElementById("showRegister");
+const createAccountBtn =
+document.getElementById("createAccountBtn");
 
-const showLogin = document.getElementById("showLogin");
+const authModal =
+document.getElementById("authModal");
 
-const forgotPassword =
-document.getElementById("forgotPassword");
+const closeAuthModal =
+document.getElementById("closeAuthModal");
 
-const loginMessage =
-document.getElementById("loginMessage");
+const modalTitle =
+document.getElementById("modalTitle");
 
-const registerMessage =
-document.getElementById("registerMessage");
+const modalSubtitle =
+document.getElementById("modalSubtitle");
 
-const userName =
-document.getElementById("userName");
+const authForm =
+document.getElementById("authForm");
 
-const userEmail =
-document.getElementById("userEmail");
+const nameGroup =
+document.getElementById("nameGroup");
 
-const avatar =
-document.getElementById("avatar");
+const authName =
+document.getElementById("authName");
 
-const verificationStatus =
-document.getElementById("verificationStatus");
+const authEmail =
+document.getElementById("authEmail");
+
+const authPassword =
+document.getElementById("authPassword");
+
+const authSubmit =
+document.getElementById("authSubmit");
+
+const modalGoogleBtn =
+document.getElementById("modalGoogleBtn");
+
+const switchAuth =
+document.getElementById("switchAuth");
+
+const modalStatus =
+document.getElementById("modalStatus");
+
+const authMessage =
+document.getElementById("authMessage");
+
+const contactForm =
+document.getElementById("contactForm");
+
+const contactMessageStatus =
+document.getElementById(
+"contactMessageStatus"
+);
 
 const toast =
 document.getElementById("toast");
@@ -78,101 +120,40 @@ document.getElementById("toastText");
 const closeToast =
 document.getElementById("closeToast");
 
-/* =====================================================
+/* =========================================================
+STATE
+========================================================= */
+
+let authMode = "login";
+
+/* =========================================================
 LOADER
-===================================================== */
+========================================================= */
 
 window.addEventListener("load", () => {
 
+```
 setTimeout(() => {
 
     if (loader) {
-
-        loader.style.opacity = "0";
-        loader.style.visibility = "hidden";
-
+        loader.classList.add("hide");
     }
 
-}, 700);
+}, 900);
+```
 
 });
 
-/* =====================================================
-TOAST
-===================================================== */
-
-function showToast(message) {
-
-if (!toast) return;
-
-toastText.textContent = message;
-
-toast.classList.add("show");
-
-setTimeout(() => {
-
-    toast.classList.remove("show");
-
-}, 4000);
-
-}
-
-if (closeToast) {
-
-closeToast.addEventListener("click", () => {
-
-    toast.classList.remove("show");
-
-});
-
-}
-
-/* =====================================================
-MESSAGES
-===================================================== */
-
-function setMessage(element, message) {
-
-if (element) {
-    element.textContent = message;
-}
-
-}
-
-/* =====================================================
-MOBILE MENU
-===================================================== */
-
-if (menuBtn && navMenu) {
-
-menuBtn.addEventListener("click", () => {
-
-    navMenu.classList.toggle("active");
-
-});
-
-}
-
-document.querySelectorAll("#navMenu a")
-.forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navMenu.classList.remove("active");
-
-    });
-
-});
-
-/* =====================================================
-NAVBAR SCROLL
-===================================================== */
+/* =========================================================
+NAVBAR SCROLL EFFECT
+========================================================= */
 
 window.addEventListener("scroll", () => {
 
+```
 if (!navbar) return;
 
-if (window.scrollY > 50) {
+if (window.scrollY > 30) {
 
     navbar.classList.add("scrolled");
 
@@ -181,543 +162,1335 @@ if (window.scrollY > 50) {
     navbar.classList.remove("scrolled");
 
 }
+```
 
 });
 
-/* =====================================================
-PASSWORD VISIBILITY
-===================================================== */
+/* =========================================================
+MOBILE MENU
+========================================================= */
 
-document
-.querySelectorAll("[data-toggle]")
-.forEach(button => {
+if (menuToggle) {
 
-    button.addEventListener("click", () => {
+```
+menuToggle.addEventListener(
+    "click",
+    () => {
 
-        const inputId =
-            button.getAttribute("data-toggle");
+        navMenu.classList.toggle("open");
 
-        const input =
-            document.getElementById(inputId);
+        const isOpen =
+            navMenu.classList.contains("open");
 
-        if (!input) return;
+        menuToggle.textContent =
+            isOpen ? "×" : "☰";
 
-        if (input.type === "password") {
+    }
+);
+```
 
-            input.type = "text";
-            button.textContent = "🙈";
+}
+
+/* Close mobile menu when link clicked */
+
+document.querySelectorAll(
+".nav-links a"
+).forEach(link => {
+
+```
+link.addEventListener(
+    "click",
+    () => {
+
+        if (navMenu) {
+            navMenu.classList.remove("open");
+        }
+
+        if (menuToggle) {
+            menuToggle.textContent = "☰";
+        }
+
+    }
+);
+```
+
+});
+
+/* =========================================================
+SMOOTH NAVIGATION
+========================================================= */
+
+function scrollToSection(id) {
+
+```
+const section =
+    document.getElementById(id);
+
+if (!section) return;
+
+section.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+});
+```
+
+}
+
+/* =========================================================
+HERO BUTTONS
+========================================================= */
+
+if (startAnalysis) {
+
+```
+startAnalysis.addEventListener(
+    "click",
+    async () => {
+
+        const {
+            data: {
+                session
+            }
+        } = await supabaseClient
+            .auth
+            .getSession();
+
+        if (session) {
+
+            window.location.href =
+                "profile.html";
 
         } else {
 
-            input.type = "password";
-            button.textContent = "👁";
+            openAuthModal("login");
 
         }
 
-    });
-
-});
-
-/* =====================================================
-SHOW LOGIN / REGISTER
-===================================================== */
-
-if (showRegister) {
-
-showRegister.addEventListener("click", () => {
-
-    loginCard.classList.add("hidden");
-
-    registerCard.classList.remove("hidden");
-
-    setMessage(loginMessage, "");
-
-});
+    }
+);
+```
 
 }
 
-if (showLogin) {
+if (ctaButton) {
 
-showLogin.addEventListener("click", () => {
+```
+ctaButton.addEventListener(
+    "click",
+    async () => {
 
-    registerCard.classList.add("hidden");
+        const {
+            data: {
+                session
+            }
+        } = await supabaseClient
+            .auth
+            .getSession();
 
-    loginCard.classList.remove("hidden");
+        if (session) {
 
-    setMessage(registerMessage, "");
+            window.location.href =
+                "profile.html";
 
-});
+        } else {
+
+            openAuthModal("signup");
+
+        }
+
+    }
+);
+```
 
 }
 
-/* =====================================================
-EMAIL REGISTER
-===================================================== */
+if (howItWorksBtn) {
 
-if (registerForm) {
+```
+howItWorksBtn.addEventListener(
+    "click",
+    () => {
 
-registerForm.addEventListener("submit", async event => {
+        scrollToSection(
+            "how-it-works"
+        );
 
-    event.preventDefault();
+    }
+);
+```
 
-    const name =
-        document.getElementById("registerName").value.trim();
+}
 
-    const email =
-        document.getElementById("registerEmail").value.trim();
+/* =========================================================
+AUTH MODAL
+========================================================= */
 
-    const password =
-        document.getElementById("registerPassword").value;
+function openAuthModal(mode = "login") {
 
-    setMessage(
-        registerMessage,
-        "Creating your account..."
-    );
+```
+authMode = mode;
+
+clearAuthMessage();
+
+if (!authModal) return;
+
+authModal.classList.add("active");
+
+document.body.style.overflow = "hidden";
+
+updateAuthModal();
+```
+
+}
+
+function closeModal() {
+
+```
+if (!authModal) return;
+
+authModal.classList.remove("active");
+
+document.body.style.overflow = "";
+
+clearAuthMessage();
+
+if (authForm) {
+    authForm.reset();
+}
+```
+
+}
+
+function updateAuthModal() {
+
+```
+if (authMode === "signup") {
+
+    modalTitle.textContent =
+        "Create Your Account";
+
+    modalSubtitle.textContent =
+        "Join AI Farmer Credit Scorer";
+
+    authSubmit.textContent =
+        "Create Account";
+
+    nameGroup.style.display =
+        "block";
+
+    switchAuth.innerHTML = `
+        Already have an account?
+        <button type="button">
+            Sign In
+        </button>
+    `;
+
+} else {
+
+    modalTitle.textContent =
+        "Welcome Back";
+
+    modalSubtitle.textContent =
+        "Sign in to continue";
+
+    authSubmit.textContent =
+        "Sign In";
+
+    nameGroup.style.display =
+        "none";
+
+    switchAuth.innerHTML = `
+        Don't have an account?
+        <button type="button">
+            Create Account
+        </button>
+    `;
+
+}
+```
+
+}
+
+if (navLogin) {
+
+```
+navLogin.addEventListener(
+    "click",
+    () => {
+
+        openAuthModal("login");
+
+    }
+);
+```
+
+}
+
+if (navRegister) {
+
+```
+navRegister.addEventListener(
+    "click",
+    () => {
+
+        openAuthModal("signup");
+
+    }
+);
+```
+
+}
+
+if (emailLoginBtn) {
+
+```
+emailLoginBtn.addEventListener(
+    "click",
+    () => {
+
+        openAuthModal("login");
+
+    }
+);
+```
+
+}
+
+if (createAccountBtn) {
+
+```
+createAccountBtn.addEventListener(
+    "click",
+    () => {
+
+        openAuthModal("signup");
+
+    }
+);
+```
+
+}
+
+if (closeAuthModal) {
+
+```
+closeAuthModal.addEventListener(
+    "click",
+    closeModal
+);
+```
+
+}
+
+/* Click outside modal */
+
+if (authModal) {
+
+```
+authModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === authModal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+```
+
+}
+
+/* Escape key */
+
+document.addEventListener(
+"keydown",
+event => {
+
+```
+    if (
+        event.key === "Escape" &&
+        authModal &&
+        authModal.classList.contains("active")
+    ) {
+
+        closeModal();
+
+    }
+
+}
+```
+
+);
+
+/* =========================================================
+SWITCH LOGIN / SIGNUP
+========================================================= */
+
+if (switchAuth) {
+
+```
+switchAuth.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target.tagName ===
+            "BUTTON"
+        ) {
+
+            authMode =
+                authMode === "login"
+                    ? "signup"
+                    : "login";
+
+            clearAuthMessage();
+
+            updateAuthModal();
+
+        }
+
+    }
+);
+```
+
+}
+
+/* =========================================================
+EMAIL AUTHENTICATION
+========================================================= */
+
+if (authForm) {
+
+```
+authForm.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+        clearAuthMessage();
+
+        const email =
+            authEmail.value.trim();
+
+        const password =
+            authPassword.value;
+
+        const fullName =
+            authName.value.trim();
 
 
-    const { data, error } =
-        await supabaseClient.auth.signUp({
+        if (!email || !password) {
 
-            email: email,
+            showAuthMessage(
+                "Please enter your email and password.",
+                true
+            );
 
-            password: password,
+            return;
 
-            options: {
-                data: {
-                    full_name: name
+        }
+
+
+        if (
+            authMode === "signup" &&
+            !fullName
+        ) {
+
+            showAuthMessage(
+                "Please enter your full name.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        setAuthLoading(true);
+
+
+        try {
+
+            if (authMode === "signup") {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .auth
+                        .signUp({
+
+                            email,
+                            password,
+
+                            options: {
+
+                                data: {
+                                    full_name:
+                                        fullName
+                                },
+
+                                emailRedirectTo:
+                                    window.location.origin +
+                                    "/profile.html"
+
+                            }
+
+                        });
+
+
+                if (error) {
+                    throw error;
                 }
+
+
+                if (
+                    data.session
+                ) {
+
+                    showAuthMessage(
+                        "Account created successfully.",
+                        false
+                    );
+
+                    showToast(
+                        "Account created successfully."
+                    );
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "profile.html";
+
+                    }, 900);
+
+                } else {
+
+                    showAuthMessage(
+                        "Account created. Please check your email to verify your account.",
+                        false
+                    );
+
+                    showToast(
+                        "Verification email sent."
+                    );
+
+                }
+
+
+            } else {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .auth
+                        .signInWithPassword({
+
+                            email,
+                            password
+
+                        });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                if (data.session) {
+
+                    showAuthMessage(
+                        "Login successful. Redirecting...",
+                        false
+                    );
+
+                    showToast(
+                        "Welcome back!"
+                    );
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "profile.html";
+
+                    }, 700);
+
+                }
+
             }
 
-        });
+        } catch (error) {
 
+            console.error(
+                "Authentication error:",
+                error
+            );
 
-    if (error) {
+            showAuthMessage(
+                getFriendlyAuthError(
+                    error
+                ),
+                true
+            );
 
-        setMessage(
-            registerMessage,
-            error.message
-        );
+        } finally {
 
-        return;
+            setAuthLoading(false);
 
-    }
-
-
-    if (data.user) {
-
-        setMessage(
-            registerMessage,
-            "Account created successfully. Check your email if verification is required."
-        );
-
-        document.getElementById("registerForm").reset();
-
-    }
-
-});
-
-}
-
-/* =====================================================
-EMAIL LOGIN
-===================================================== */
-
-if (loginForm) {
-
-loginForm.addEventListener("submit", async event => {
-
-    event.preventDefault();
-
-    const email =
-        document.getElementById("loginEmail").value.trim();
-
-    const password =
-        document.getElementById("loginPassword").value;
-
-
-    setMessage(
-        loginMessage,
-        "Signing in..."
-    );
-
-
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-
-            email: email,
-
-            password: password
-
-        });
-
-
-    if (error) {
-
-        setMessage(
-            loginMessage,
-            error.message
-        );
-
-        return;
-
-    }
-
-
-    setMessage(
-        loginMessage,
-        "Login successful."
-    );
-
-    showDashboard(data.user);
-
-});
-
-}
-
-/* =====================================================
-GOOGLE LOGIN
-===================================================== */
-
-async function loginWithGoogle() {
-
-const { error } =
-    await supabaseClient.auth.signInWithOAuth({
-
-        provider: "google",
-
-        options: {
-            redirectTo: window.location.origin
         }
 
-    });
+    }
+);
+```
 
+}
 
-if (error) {
+/* =========================================================
+GOOGLE LOGIN
+========================================================= */
 
-    showToast(
-        "Google login failed: " + error.message
+async function signInWithGoogle() {
+
+```
+clearAuthMessage();
+
+try {
+
+    showAuthMessage(
+        "Connecting to Google...",
+        false
     );
 
-}
 
-}
+    const {
+        error
+    } =
+        await supabaseClient
+            .auth
+            .signInWithOAuth({
 
-if (googleLogin) {
+                provider: "google",
 
-googleLogin.addEventListener(
-    "click",
-    loginWithGoogle
-);
+                options: {
 
-}
+                    redirectTo:
+                        window.location.origin +
+                        "/profile.html"
 
-if (googleRegister) {
+                }
 
-googleRegister.addEventListener(
-    "click",
-    loginWithGoogle
-);
-
-}
-
-/* =====================================================
-FORGOT PASSWORD
-===================================================== */
-
-if (forgotPassword) {
-
-forgotPassword.addEventListener("click", async event => {
-
-    event.preventDefault();
-
-    const email =
-        document.getElementById("loginEmail").value.trim();
-
-
-    if (!email) {
-
-        showToast(
-            "Enter your email address first."
-        );
-
-        return;
-
-    }
-
-
-    const { error } =
-        await supabaseClient.auth.resetPasswordForEmail(
-            email,
-            {
-                redirectTo:
-                    window.location.origin
-            }
-        );
+            });
 
 
     if (error) {
-
-        showToast(error.message);
-
-        return;
-
+        throw error;
     }
 
+} catch (error) {
 
-    showToast(
-        "Password reset instructions have been sent to your email."
+    console.error(
+        "Google login error:",
+        error
     );
 
-});
+    showAuthMessage(
+        getFriendlyAuthError(
+            error
+        ),
+        true
+    );
+
+}
+```
 
 }
 
-/* =====================================================
-SHOW DASHBOARD
-===================================================== */
+if (googleLoginBtn) {
 
-function showDashboard(user) {
-
-if (!user) return;
-
-loginCard.classList.add("hidden");
-
-registerCard.classList.add("hidden");
-
-dashboardCard.classList.remove("hidden");
-
-
-const metadata =
-    user.user_metadata || {};
-
-
-const name =
-    metadata.full_name ||
-    metadata.name ||
-    user.email?.split("@")[0] ||
-    "Farmer";
-
-
-userName.textContent = name;
-
-userEmail.textContent =
-    user.email || "";
-
-
-avatar.textContent =
-    name.charAt(0).toUpperCase();
-
-
-verificationStatus.textContent =
-    "Your identity has not been verified yet.";
-
-
-showToast(
-    "Welcome, " + name + "!"
+```
+googleLoginBtn.addEventListener(
+    "click",
+    signInWithGoogle
 );
+```
 
 }
 
-/* =====================================================
-LOGOUT
-===================================================== */
+if (modalGoogleBtn) {
 
-if (logoutBtn) {
-
-logoutBtn.addEventListener("click", async () => {
-
-    const { error } =
-        await supabaseClient.auth.signOut();
-
-
-    if (error) {
-
-        showToast(error.message);
-
-        return;
-
-    }
-
-
-    dashboardCard.classList.add("hidden");
-
-    loginCard.classList.remove("hidden");
-
-    loginForm.reset();
-
-    showToast("You have been signed out.");
-
-    document
-        .getElementById("analysis")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
-});
+```
+modalGoogleBtn.addEventListener(
+    "click",
+    signInWithGoogle
+);
+```
 
 }
 
-/* =====================================================
-AUTH STATE
-===================================================== */
+/* =========================================================
+AUTH LOADING
+========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-(event, session) => {
+function setAuthLoading(
+loading
+) {
 
-    if (session && session.user) {
+```
+if (!authSubmit) return;
 
-        showDashboard(session.user);
+if (loading) {
+
+    authSubmit.disabled = true;
+
+    authSubmit.textContent =
+        authMode === "signup"
+            ? "Creating Account..."
+            : "Signing In...";
+
+} else {
+
+    authSubmit.disabled = false;
+
+    authSubmit.textContent =
+        authMode === "signup"
+            ? "Create Account"
+            : "Sign In";
+
+}
+```
+
+}
+
+/* =========================================================
+AUTH MESSAGES
+========================================================= */
+
+function showAuthMessage(
+message,
+isError = false
+) {
+
+```
+if (!modalStatus) return;
+
+modalStatus.textContent =
+    message;
+
+modalStatus.style.color =
+    isError
+        ? "#c0392b"
+        : "#21834d";
+
+if (authMessage) {
+
+    authMessage.textContent =
+        message;
+
+    authMessage.style.color =
+        isError
+            ? "#c0392b"
+            : "#21834d";
+
+}
+```
+
+}
+
+function clearAuthMessage() {
+
+```
+if (modalStatus) {
+    modalStatus.textContent = "";
+}
+
+if (authMessage) {
+    authMessage.textContent = "";
+}
+```
+
+}
+
+/* =========================================================
+FRIENDLY AUTH ERRORS
+========================================================= */
+
+function getFriendlyAuthError(
+error
+) {
+
+```
+const message =
+    error?.message || "";
+
+const lower =
+    message.toLowerCase();
+
+
+if (
+    lower.includes(
+        "invalid login credentials"
+    )
+) {
+
+    return "Incorrect email or password.";
+
+}
+
+
+if (
+    lower.includes(
+        "email not confirmed"
+    )
+) {
+
+    return "Please verify your email before signing in.";
+
+}
+
+
+if (
+    lower.includes(
+        "user already registered"
+    )
+) {
+
+    return "This email is already registered. Please sign in.";
+
+}
+
+
+if (
+    lower.includes(
+        "password"
+    ) &&
+    lower.includes(
+        "characters"
+    )
+) {
+
+    return "Your password must meet Supabase's password requirements.";
+
+}
+
+
+if (
+    lower.includes(
+        "rate limit"
+    )
+) {
+
+    return "Too many attempts. Please wait and try again.";
+
+}
+
+
+if (
+    lower.includes(
+        "network"
+    )
+) {
+
+    return "Network error. Please check your internet connection.";
+
+}
+
+
+return message ||
+    "Something went wrong. Please try again.";
+```
+
+}
+
+/* =========================================================
+AUTH SESSION CHECK
+========================================================= */
+
+async function checkUserSession() {
+
+```
+try {
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabaseClient
+            .auth
+            .getSession();
+
+
+    if (session) {
+
+        console.log(
+            "Logged in:",
+            session.user.email
+        );
+
+        updateNavigationForUser(
+            session.user
+        );
 
     } else {
 
-        dashboardCard.classList.add("hidden");
+        console.log(
+            "No active session."
+        );
 
-        loginCard.classList.remove("hidden");
+        updateNavigationForUser(
+            null
+        );
 
     }
 
+} catch (error) {
+
+    console.error(
+        "Session check failed:",
+        error
+    );
+
+}
+```
+
 }
 
+function updateNavigationForUser(
+user
+) {
+
+```
+if (!navLogin || !navRegister) {
+    return;
+}
+
+
+if (user) {
+
+    navLogin.textContent =
+        "Dashboard";
+
+    navRegister.textContent =
+        "Sign Out";
+
+
+    navLogin.onclick =
+        () => {
+
+            window.location.href =
+                "profile.html";
+
+        };
+
+
+    navRegister.onclick =
+        async () => {
+
+            await signOut();
+
+        };
+
+} else {
+
+    navLogin.textContent =
+        "Sign In";
+
+    navRegister.textContent =
+        "Create Account";
+
+
+    navLogin.onclick =
+        () => {
+
+            openAuthModal(
+                "login"
+            );
+
+        };
+
+
+    navRegister.onclick =
+        () => {
+
+            openAuthModal(
+                "signup"
+            );
+
+        };
+
+}
+```
+
+}
+
+/* =========================================================
+AUTH STATE LISTENER
+========================================================= */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+async (
+event,
+session
+) => {
+
+```
+        console.log(
+            "Auth event:",
+            event
+        );
+
+
+        if (session) {
+
+            updateNavigationForUser(
+                session.user
+            );
+
+        } else {
+
+            updateNavigationForUser(
+                null
+            );
+
+        }
+
+    }
 );
+```
 
-/* =====================================================
-PROFILE
-===================================================== */
+/* =========================================================
+SIGN OUT
+========================================================= */
 
-const profileBtn =
-document.getElementById("profileBtn");
+async function signOut() {
 
-if (profileBtn) {
+```
+try {
 
-profileBtn.addEventListener("click", () => {
+    const {
+        error
+    } =
+        await supabaseClient
+            .auth
+            .signOut();
+
+
+    if (error) {
+        throw error;
+    }
+
 
     showToast(
-        "Personal profile page will be connected next."
+        "You have been signed out."
     );
 
-});
+
+    setTimeout(() => {
+
+        window.location.reload();
+
+    }, 600);
+
+
+} catch (error) {
+
+    console.error(
+        "Sign out error:",
+        error
+    );
+
+    showToast(
+        "Unable to sign out."
+    );
+
+}
+```
 
 }
 
-/* =====================================================
-FAYDA VERIFICATION
-===================================================== */
-
-const verifyBtn =
-document.getElementById("verifyBtn");
-
-if (verifyBtn) {
-
-verifyBtn.addEventListener("click", () => {
-
-    showToast(
-        "Fayda identity verification will be connected through the approved verification API."
-    );
-
-});
-
-}
-
-/* =====================================================
-AI ANALYSIS
-===================================================== */
-
-const analysisBtn =
-document.getElementById("analysisBtn");
-
-if (analysisBtn) {
-
-analysisBtn.addEventListener("click", () => {
-
-    showToast(
-        "AI Farmer Credit Analysis is ready for the Python ML API."
-    );
-
-});
-
-}
-
-/* =====================================================
+/* =========================================================
 CONTACT FORM
-===================================================== */
-
-const contactForm =
-document.getElementById("contactForm");
+========================================================= */
 
 if (contactForm) {
 
-contactForm.addEventListener("submit", event => {
+```
+contactForm.addEventListener(
+    "submit",
+    event => {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    showToast(
-        "Thank you. Your message is ready to be sent."
-    );
 
-    contactForm.reset();
+        const name =
+            document
+                .getElementById(
+                    "contactName"
+                )
+                ?.value
+                .trim();
 
-});
+        const email =
+            document
+                .getElementById(
+                    "contactEmail"
+                )
+                ?.value
+                .trim();
+
+        const message =
+            document
+                .getElementById(
+                    "contactMessage"
+                )
+                ?.value
+                .trim();
+
+
+        if (
+            !name ||
+            !email ||
+            !message
+        ) {
+
+            setContactStatus(
+                "Please complete all fields.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+        if (
+            !emailPattern.test(email)
+        ) {
+
+            setContactStatus(
+                "Please enter a valid email address.",
+                true
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Front-end only for now.
+         * Connect this form to Supabase
+         * or another backend when ready.
+         */
+
+        setContactStatus(
+            "Thank you! Your message has been received.",
+            false
+        );
+
+        showToast(
+            "Message submitted successfully."
+        );
+
+
+        contactForm.reset();
+
+    }
+);
+```
 
 }
 
-/* =====================================================
-ACTIVE NAV
-===================================================== */
+function setContactStatus(
+message,
+isError
+) {
+
+```
+if (!contactMessageStatus) {
+    return;
+}
+
+contactMessageStatus.textContent =
+    message;
+
+contactMessageStatus.style.color =
+    isError
+        ? "#c0392b"
+        : "#21834d";
+```
+
+}
+
+/* =========================================================
+TOAST
+========================================================= */
+
+let toastTimer;
+
+function showToast(
+message
+) {
+
+```
+if (!toast || !toastText) {
+    return;
+}
+
+
+toastText.textContent =
+    message;
+
+
+toast.classList.add(
+    "show"
+);
+
+
+clearTimeout(
+    toastTimer
+);
+
+
+toastTimer =
+    setTimeout(() => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    }, 3500);
+```
+
+}
+
+if (closeToast) {
+
+```
+closeToast.addEventListener(
+    "click",
+    () => {
+
+        toast.classList.remove(
+            "show"
+        );
+
+    }
+);
+```
+
+}
+
+/* =========================================================
+ACTIVE NAVIGATION
+========================================================= */
 
 const sections =
-document.querySelectorAll("section[id]");
-
-const links =
-document.querySelectorAll("#navMenu a");
-
-window.addEventListener("scroll", () => {
-
-let current = "";
-
-sections.forEach(section => {
-
-    const top =
-        section.offsetTop - 150;
-
-    if (window.scrollY >= top) {
-
-        current =
-            section.getAttribute("id");
-
-    }
-
-});
-
-
-links.forEach(link => {
-
-    link.classList.remove("active");
-
-    if (
-        link.getAttribute("href") ===
-        "#" + current
-    ) {
-
-        link.classList.add("active");
-
-    }
-
-});
-
-});
-
-/* =====================================================
-STARTUP MESSAGE
-===================================================== */
-
-console.log(
-"🌾 AI Farmer Credit Scorer initialized."
+document.querySelectorAll(
+"main section[id]"
 );
 
-console.log(
-"🔐 Authentication handled by Supabase Auth."
+const navigationLinks =
+document.querySelectorAll(
+".nav-links a"
 );
 
-console.log(
-"🛡️ Fayda verification integration is prepared for approved API connection."
+window.addEventListener(
+"scroll",
+() => {
+
+```
+    let currentSection = "";
+
+    sections.forEach(
+        section => {
+
+            const top =
+                section.offsetTop -
+                130;
+
+            const height =
+                section.offsetHeight;
+
+            if (
+                window.scrollY >= top &&
+                window.scrollY <
+                top + height
+            ) {
+
+                currentSection =
+                    section.id;
+
+            }
+
+        }
+    );
+
+
+    navigationLinks.forEach(
+        link => {
+
+            link.classList.remove(
+                "active"
+            );
+
+
+            const href =
+                link.getAttribute(
+                    "href"
+                );
+
+
+            if (
+                href ===
+                "#" + currentSection
+            ) {
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+```
+
+);
+
+/* =========================================================
+INITIALIZE
+========================================================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+() => {
+
+```
+    checkUserSession();
+
+    console.log(
+        "AI Farmer Credit Scorer ready."
+    );
+
+}
+```
+
 );
