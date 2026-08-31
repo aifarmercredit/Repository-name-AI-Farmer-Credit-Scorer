@@ -1,402 +1,793 @@
-/* =========================================
+/* =====================================================
    AI FARMER CREDIT SCORER
-   SUPABASE CONFIGURATION
-========================================= */
+   AUTHENTICATION SCRIPT
+===================================================== */
+
+
+/* =====================================================
+   1. SUPABASE CONFIGURATION
+===================================================== */
+
+/*
+   Supabase Dashboard
+   → Project Settings
+   → API
+
+   PASTE:
+   - Project URL
+   - anon public key
+
+   NEVER put Service Role Key or Secret Key here.
+*/
 
 const SUPABASE_URL =
-    "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+    "PASTE_YOUR_SUPABASE_URL";
 
 const SUPABASE_ANON_KEY =
-    "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+    "PASTE_YOUR_SUPABASE_ANON_KEY";
 
 
-const supabaseClient =
-    supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
+/* =====================================================
+   2. CREATE SUPABASE CLIENT
+===================================================== */
+
+let supabaseClient = null;
+
+try {
+
+    if (
+        SUPABASE_URL.startsWith("http") &&
+        SUPABASE_ANON_KEY.length > 30
+    ) {
+
+        supabaseClient =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+        console.log(
+            "Supabase connected successfully."
+        );
+
+    } else {
+
+        console.warn(
+            "Supabase configuration is incomplete."
+        );
+
+    }
+
+} catch (error) {
+
+    console.error(
+        "Supabase initialization error:",
+        error
     );
 
-
-/* =========================================
-   CREDIT ASSESSMENT FORM
-========================================= */
-
-const assessmentForm =
-    document.getElementById(
-        "assessmentForm"
-    );
+}
 
 
-const formMessage =
-    document.getElementById(
-        "formMessage"
-    );
+/* =====================================================
+   3. GET HTML ELEMENTS
+===================================================== */
+
+const authForm =
+    document.getElementById("authForm");
+
+const authTitle =
+    document.getElementById("authTitle");
+
+const authSubtitle =
+    document.getElementById("authSubtitle");
+
+const nameGroup =
+    document.getElementById("nameGroup");
+
+const fullName =
+    document.getElementById("fullName");
+
+const email =
+    document.getElementById("email");
+
+const password =
+    document.getElementById("password");
+
+const passwordToggle =
+    document.getElementById("passwordToggle");
+
+const passwordIcon =
+    document.getElementById("passwordIcon");
+
+const formOptions =
+    document.getElementById("formOptions");
+
+const authSubmit =
+    document.getElementById("authSubmit");
+
+const authSubmitText =
+    document.getElementById("authSubmitText");
+
+const submitIcon =
+    document.getElementById("submitIcon");
+
+const authMessage =
+    document.getElementById("authMessage");
+
+const switchAuthMode =
+    document.getElementById("switchAuthMode");
+
+const switchText =
+    document.getElementById("switchText");
+
+const googleLogin =
+    document.getElementById("googleLogin");
+
+const forgotPassword =
+    document.getElementById("forgotPassword");
 
 
-const submitButton =
-    document.getElementById(
-        "submitButton"
-    );
+/* =====================================================
+   4. AUTH MODE
+===================================================== */
+
+let authMode = "signin";
 
 
-assessmentForm.addEventListener(
+/* =====================================================
+   5. SHOW MESSAGE
+===================================================== */
+
+function showMessage(
+    message,
+    type = "error"
+) {
+
+    if (!authMessage) return;
+
+    authMessage.textContent =
+        message;
+
+
+    if (type === "success") {
+
+        authMessage.style.color =
+            "#218653";
+
+    }
+
+    else if (type === "info") {
+
+        authMessage.style.color =
+            "#197447";
+
+    }
+
+    else {
+
+        authMessage.style.color =
+            "#c93b3b";
+
+    }
+
+}
+
+
+/* =====================================================
+   6. CLEAR MESSAGE
+===================================================== */
+
+function clearMessage() {
+
+    if (!authMessage) return;
+
+    authMessage.textContent = "";
+
+}
+
+
+/* =====================================================
+   7. UPDATE AUTH MODE
+===================================================== */
+
+function updateAuthMode() {
+
+    clearMessage();
+
+
+    /* =====================
+       CREATE ACCOUNT MODE
+    ====================== */
+
+    if (authMode === "signup") {
+
+        authTitle.textContent =
+            "Create Account";
+
+
+        authSubtitle.textContent =
+            "Create your account and start your AI-powered credit assessment.";
+
+
+        nameGroup.style.display =
+            "flex";
+
+
+        fullName.required =
+            true;
+
+
+        authSubmitText.textContent =
+            "Create Account";
+
+
+        switchText.textContent =
+            "Already have an account?";
+
+
+        switchAuthMode.textContent =
+            "Sign In";
+
+
+        formOptions.style.display =
+            "none";
+
+
+        password.autocomplete =
+            "new-password";
+
+
+        password.value = "";
+
+
+        password.placeholder =
+            "Create a password";
+
+    }
+
+
+    /* =====================
+       SIGN IN MODE
+    ====================== */
+
+    else {
+
+        authTitle.textContent =
+            "Welcome Back";
+
+
+        authSubtitle.textContent =
+            "Sign in to continue to your AI-powered credit assessment.";
+
+
+        nameGroup.style.display =
+            "none";
+
+
+        fullName.required =
+            false;
+
+
+        authSubmitText.textContent =
+            "Sign In";
+
+
+        switchText.textContent =
+            "Don't have an account?";
+
+
+        switchAuthMode.textContent =
+            "Create Account";
+
+
+        formOptions.style.display =
+            "flex";
+
+
+        password.autocomplete =
+            "current-password";
+
+
+        password.value = "";
+
+
+        password.placeholder =
+            "Enter your password";
+
+    }
+
+}
+
+
+/* =====================================================
+   8. SWITCH SIGN IN / CREATE ACCOUNT
+===================================================== */
+
+switchAuthMode.addEventListener(
+    "click",
+    function () {
+
+        if (
+            authMode === "signin"
+        ) {
+
+            authMode =
+                "signup";
+
+        }
+
+        else {
+
+            authMode =
+                "signin";
+
+        }
+
+
+        updateAuthMode();
+
+    }
+);
+
+
+/* =====================================================
+   9. PASSWORD SHOW / HIDE
+===================================================== */
+
+passwordToggle.addEventListener(
+    "click",
+    function () {
+
+        if (
+            password.type ===
+            "password"
+        ) {
+
+            password.type =
+                "text";
+
+
+            passwordIcon.className =
+                "fa-regular fa-eye-slash";
+
+        }
+
+        else {
+
+            password.type =
+                "password";
+
+
+            passwordIcon.className =
+                "fa-regular fa-eye";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   10. BUTTON LOADING
+===================================================== */
+
+function setSubmitLoading(
+    loading,
+    text = "Please wait..."
+) {
+
+    if (loading) {
+
+        authSubmit.disabled =
+            true;
+
+
+        authSubmitText.textContent =
+            text;
+
+
+        submitIcon.className =
+            "fa-solid fa-spinner fa-spin";
+
+    }
+
+    else {
+
+        authSubmit.disabled =
+            false;
+
+
+        submitIcon.className =
+            "fa-solid fa-arrow-right";
+
+
+        if (
+            authMode ===
+            "signup"
+        ) {
+
+            authSubmitText.textContent =
+                "Create Account";
+
+        }
+
+        else {
+
+            authSubmitText.textContent =
+                "Sign In";
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   11. EMAIL / PASSWORD AUTH
+===================================================== */
+
+authForm.addEventListener(
     "submit",
     async function (event) {
 
         event.preventDefault();
 
 
-        /* GET USER DATA */
+        clearMessage();
 
-        const fullName =
-            document
-                .getElementById("fullName")
-                .value
+
+        /* =====================
+           CHECK SUPABASE
+        ====================== */
+
+        if (!supabaseClient) {
+
+            showMessage(
+                "Supabase is not configured. Add your Project URL and anon public key in script.js."
+            );
+
+            return;
+
+        }
+
+
+        const userEmail =
+            email.value
                 .trim();
 
 
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim();
+        const userPassword =
+            password.value;
 
 
-        const phone =
-            document
-                .getElementById("phone")
-                .value
-                .trim();
-
-
-        const location =
-            document
-                .getElementById("location")
-                .value
-                .trim();
-
-
-        const farmType =
-            document
-                .getElementById("farmType")
-                .value;
-
-
-        const farmSize =
-            Number(
-                document
-                    .getElementById("farmSize")
-                    .value
-            );
-
-
-        const farmIncome =
-            Number(
-                document
-                    .getElementById("farmIncome")
-                    .value
-            );
-
-
-        const incomeFrequency =
-            document
-                .getElementById(
-                    "incomeFrequency"
-                )
-                .value;
-
-
-        const loanAmount =
-            Number(
-                document
-                    .getElementById("loanAmount")
-                    .value
-            );
-
-
-        const loanHistory =
-            document
-                .getElementById("loanHistory")
-                .value;
-
-
-        const expenses =
-            Number(
-                document
-                    .getElementById("expenses")
-                    .value
-            );
-
-
-        const repaymentAbility =
-            document
-                .getElementById(
-                    "repaymentAbility"
-                )
-                .value;
-
-
-        /* ===============================
-           SIMPLE CREDIT SCORE
-           This can later be replaced
-           with your real AI model.
-        =============================== */
-
-        let creditScore = 500;
-
-
-        /* Income */
-
-        if (farmIncome > 100000) {
-
-            creditScore += 100;
-
-        } else if (farmIncome > 50000) {
-
-            creditScore += 70;
-
-        } else if (farmIncome > 20000) {
-
-            creditScore += 40;
-
-        }
-
-
-        /* Farm size */
-
-        if (farmSize >= 10) {
-
-            creditScore += 50;
-
-        } else if (farmSize >= 5) {
-
-            creditScore += 30;
-
-        } else {
-
-            creditScore += 10;
-
-        }
-
-
-        /* Loan history */
+        /* =====================
+           VALIDATION
+        ====================== */
 
         if (
-            loanHistory ===
-            "Paid On Time"
+            !userEmail ||
+            !userPassword
         ) {
 
-            creditScore += 100;
-
-        } else if (
-            loanHistory ===
-            "No Previous Loan"
-        ) {
-
-            creditScore += 30;
-
-        } else if (
-            loanHistory ===
-            "Late Payments"
-        ) {
-
-            creditScore -= 70;
-
-        }
-
-
-        /* Repayment ability */
-
-        if (
-            repaymentAbility ===
-            "High"
-        ) {
-
-            creditScore += 70;
-
-        } else if (
-            repaymentAbility ===
-            "Medium"
-        ) {
-
-            creditScore += 35;
-
-        }
-
-
-        /* Expenses */
-
-        if (
-            expenses <
-            farmIncome * 0.4
-        ) {
-
-            creditScore += 50;
-
-        } else if (
-            expenses >
-            farmIncome * 0.8
-        ) {
-
-            creditScore -= 40;
-
-        }
-
-
-        /* Loan amount */
-
-        if (
-            loanAmount >
-            farmIncome * 2
-        ) {
-
-            creditScore -= 50;
-
-        }
-
-
-        /* Limit score */
-
-        creditScore =
-            Math.max(
-                300,
-                Math.min(
-                    850,
-                    creditScore
-                )
+            showMessage(
+                "Please enter your email and password."
             );
 
-
-        /* ===============================
-           STATUS
-        =============================== */
-
-        let creditStatus;
-        let description;
-
-
-        if (creditScore >= 750) {
-
-            creditStatus =
-                "Excellent Credit Readiness";
-
-            description =
-                "Your financial and agricultural profile shows strong potential for agricultural financing.";
+            return;
 
         }
 
-        else if (creditScore >= 650) {
 
-            creditStatus =
-                "Good Credit Readiness";
+        if (
+            authMode ===
+            "signup"
+        ) {
 
-            description =
-                "Your profile shows good credit potential with some areas for improvement.";
+            if (
+                !fullName.value.trim()
+            ) {
+
+                showMessage(
+                    "Please enter your full name."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                userPassword.length < 6
+            ) {
+
+                showMessage(
+                    "Password must be at least 6 characters."
+                );
+
+                return;
+
+            }
 
         }
 
-        else if (creditScore >= 550) {
 
-            creditStatus =
-                "Moderate Credit Readiness";
+        /* =====================
+           CREATE ACCOUNT
+        ====================== */
 
-            description =
-                "Your profile may require improvement before qualifying for larger financing.";
+        if (
+            authMode ===
+            "signup"
+        ) {
+
+            try {
+
+                setSubmitLoading(
+                    true,
+                    "Creating Account..."
+                );
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .auth
+                        .signUp({
+
+                            email:
+                                userEmail,
+
+                            password:
+                                userPassword,
+
+                            options: {
+
+                                data: {
+
+                                    full_name:
+                                        fullName
+                                            .value
+                                            .trim()
+
+                                },
+
+                                emailRedirectTo:
+                                    window.location.origin
+
+                            }
+
+                        });
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                /* =================
+                   EMAIL CONFIRMATION
+                ================== */
+
+                if (
+                    data.user &&
+                    !data.session
+                ) {
+
+                    showMessage(
+                        "Account created successfully. Please check your email and confirm your account.",
+                        "success"
+                    );
+
+                }
+
+
+                /* =================
+                   USER LOGGED IN
+                ================== */
+
+                else {
+
+                    showMessage(
+                        "Account created successfully. Redirecting...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "assessment.html";
+
+                        },
+                        900
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Signup error:",
+                    error
+                );
+
+
+                showMessage(
+                    error.message ||
+                    "Could not create your account."
+                );
+
+            }
+
+            finally {
+
+                setSubmitLoading(
+                    false
+                );
+
+            }
 
         }
+
+
+        /* =====================
+           SIGN IN
+        ====================== */
 
         else {
 
-            creditStatus =
-                "Low Credit Readiness";
+            try {
 
-            description =
-                "Improving financial stability and repayment capacity may improve your credit readiness.";
+                setSubmitLoading(
+                    true,
+                    "Signing In..."
+                );
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .auth
+                        .signInWithPassword({
+
+                            email:
+                                userEmail,
+
+                            password:
+                                userPassword
+
+                        });
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (
+                    data.user
+                ) {
+
+                    showMessage(
+                        "Sign in successful. Redirecting...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "assessment.html";
+
+                        },
+                        700
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Sign in error:",
+                    error
+                );
+
+
+                showMessage(
+                    error.message ||
+                    "Incorrect email or password."
+                );
+
+            }
+
+            finally {
+
+                setSubmitLoading(
+                    false
+                );
+
+            }
 
         }
 
-
-        /* ===============================
-           LOADING
-        =============================== */
-
-        submitButton.disabled = true;
-
-        submitButton.innerHTML =
-            "Analyzing Your Information...";
+    }
+);
 
 
-        formMessage.textContent =
-            "Saving your information securely...";
+/* =====================================================
+   12. GOOGLE LOGIN
+===================================================== */
 
-        formMessage.style.color =
-            "#21784e";
+googleLogin.addEventListener(
+    "click",
+    async function () {
+
+        clearMessage();
+
+
+        if (!supabaseClient) {
+
+            showMessage(
+                "Supabase is not configured yet."
+            );
+
+            return;
+
+        }
 
 
         try {
 
-            /* ===============================
-               SAVE TO SUPABASE
-            =============================== */
+            googleLogin.disabled =
+                true;
+
+
+            googleLogin.innerHTML = `
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <span>
+                    Connecting to Google...
+                </span>
+
+            `;
+
 
             const {
                 data,
                 error
             } =
                 await supabaseClient
-                    .from(
-                        "farmer_assessments"
-                    )
-                    .insert([
+                    .auth
+                    .signInWithOAuth({
 
-                        {
+                        provider:
+                            "google",
 
-                            full_name:
-                                fullName,
+                        options: {
 
-                            email:
-                                email,
-
-                            phone:
-                                phone,
-
-                            location:
-                                location,
-
-                            farm_type:
-                                farmType,
-
-                            farm_size:
-                                farmSize,
-
-                            farm_income:
-                                farmIncome,
-
-                            income_frequency:
-                                incomeFrequency,
-
-                            loan_amount:
-                                loanAmount,
-
-                            loan_history:
-                                loanHistory,
-
-                            monthly_expenses:
-                                expenses,
-
-                            repayment_ability:
-                                repaymentAbility,
-
-                            credit_score:
-                                creditScore,
-
-                            credit_status:
-                                creditStatus
+                            redirectTo:
+                                window.location.origin +
+                                "/assessment.html"
 
                         }
 
-                    ])
-                    .select();
+                    });
 
 
             if (error) {
@@ -407,92 +798,65 @@ assessmentForm.addEventListener(
 
 
             console.log(
-                "Assessment saved:",
+                "Google authentication started:",
                 data
             );
-
-
-            /* ===============================
-               SHOW RESULT
-            =============================== */
-
-            document
-                .getElementById(
-                    "resultScore"
-                )
-                .textContent =
-                creditScore;
-
-
-            document
-                .getElementById(
-                    "resultStatus"
-                )
-                .textContent =
-                creditStatus;
-
-
-            document
-                .getElementById(
-                    "resultDescription"
-                )
-                .textContent =
-                description;
-
-
-            formMessage.textContent =
-                "Assessment completed successfully!";
-
-
-            assessmentForm.reset();
-
-
-            const resultSection =
-                document.getElementById(
-                    "resultSection"
-                );
-
-
-            resultSection.style.display =
-                "block";
-
-
-            setTimeout(() => {
-
-                resultSection.scrollIntoView({
-
-                    behavior: "smooth"
-
-                });
-
-            }, 300);
-
 
         }
 
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "Google login error:",
+                error
+            );
 
 
-            formMessage.textContent =
-                "Error: " +
-                error.message;
+            showMessage(
+                error.message ||
+                "Google sign in failed."
+            );
 
 
-            formMessage.style.color =
-                "#c0392b";
-
-        }
-
-        finally {
-
-            submitButton.disabled =
+            googleLogin.disabled =
                 false;
 
 
-            submitButton.innerHTML =
-                "Analyze My Credit Score →";
+            googleLogin.innerHTML = `
+
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true">
+
+                    <path
+                        fill="#4285F4"
+                        d="M21.35 12.27c0-.79-.07-1.55-.21-2.27H12v4.3h5.23a4.47 4.47 0 0 1-1.94 2.93v2.79h3.14c1.84-1.69 2.92-4.18 2.92-7.75z"
+                    />
+
+                    <path
+                        fill="#34A853"
+                        d="M12 21.75c2.63 0 4.84-.87 6.45-2.35l-3.14-2.79c-.87.58-1.99.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.88A9.75 9.75 0 0 0 12 21.75z"
+                    />
+
+                    <path
+                        fill="#FBBC05"
+                        d="M6.54 13.5A5.86 5.86 0 0 1 6.24 12c0-.52.09-1.02.3-1.5V7.62H3.3A9.75 9.75 0 0 0 2.25 12c0 1.57.38 3.05 1.05 4.38l3.24-2.88z"
+                    />
+
+                    <path
+                        fill="#EA4335"
+                        d="M12 6.47c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.84 3.58 14.63 2.25 12 2.25A9.75 9.75 0 0 3.3 7.62l3.24 2.88C7.31 8.19 9.46 6.47 12 6.47z"
+                    />
+
+                </svg>
+
+                <span>
+                    Continue with Google
+                </span>
+
+            `;
 
         }
 
@@ -500,75 +864,73 @@ assessmentForm.addEventListener(
 );
 
 
-/* =========================================
-   CONTACT FORM
-========================================= */
+/* =====================================================
+   13. FORGOT PASSWORD
+===================================================== */
 
-const contactForm =
-    document.getElementById(
-        "contactForm"
-    );
+forgotPassword.addEventListener(
+    "click",
+    async function () {
 
-
-contactForm.addEventListener(
-    "submit",
-    async function (event) {
-
-        event.preventDefault();
+        clearMessage();
 
 
-        const name =
-            document
-                .getElementById(
-                    "contactName"
-                )
-                .value
+        if (!supabaseClient) {
+
+            showMessage(
+                "Supabase is not configured yet."
+            );
+
+            return;
+
+        }
+
+
+        const userEmail =
+            email.value
                 .trim();
 
 
-        const email =
-            document
-                .getElementById(
-                    "contactEmail"
-                )
-                .value
-                .trim();
+        if (!userEmail) {
 
+            showMessage(
+                "Please enter your email address first."
+            );
 
-        const message =
-            document
-                .getElementById(
-                    "contactMessage"
-                )
-                .value
-                .trim();
+            email.focus();
+
+            return;
+
+        }
 
 
         try {
+
+            forgotPassword.disabled =
+                true;
+
+
+            showMessage(
+                "Sending password reset email...",
+                "info"
+            );
+
 
             const {
                 error
             } =
                 await supabaseClient
-                    .from(
-                        "contact_messages"
-                    )
-                    .insert([
-
+                    .auth
+                    .resetPasswordForEmail(
+                        userEmail,
                         {
 
-                            full_name:
-                                name,
-
-                            email:
-                                email,
-
-                            message:
-                                message
+                            redirectTo:
+                                window.location.origin +
+                                "/index.html"
 
                         }
-
-                    ]);
+                    );
 
 
             if (error) {
@@ -578,26 +940,126 @@ contactForm.addEventListener(
             }
 
 
-            alert(
-                "Thank you! Your message has been sent successfully."
+            showMessage(
+                "Password reset link sent. Please check your email.",
+                "success"
             );
-
-
-            contactForm.reset();
 
         }
 
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "Password reset error:",
+                error
+            );
 
 
-            alert(
-                "Message could not be sent: " +
-                error.message
+            showMessage(
+                error.message ||
+                "Could not send reset email."
             );
 
         }
+
+        finally {
+
+            forgotPassword.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   14. CHECK USER SESSION
+===================================================== */
+
+async function checkSession() {
+
+    if (!supabaseClient) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .auth
+                .getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        /*
+           IMPORTANT:
+
+           Do not automatically redirect from this
+           authentication page immediately if the user
+           is already logged in, because the user may
+           intentionally return here.
+
+           assessment.html will verify login itself.
+        */
+
+        if (
+            data.session
+        ) {
+
+            console.log(
+                "Current user:",
+                data.session.user.email
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Session check failed:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   15. INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateAuthMode();
+
+        checkSession();
+
+        console.log(
+            "AI Farmer Credit Scorer authentication ready."
+        );
 
     }
 );
