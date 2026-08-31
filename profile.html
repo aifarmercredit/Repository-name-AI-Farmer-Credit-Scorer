@@ -1,1 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | AI Farmer Credit Scorer</title>
+
+    <meta
+        name="description"
+        content="Manage your AI Farmer Credit Scorer profile and account.">
+
+
+    <!-- PROFILE CSS -->
+    <link
+        rel="stylesheet"
+        href="profile.css">
+
+
+    <!-- SUPABASE -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING SCREEN
+===================================================== -->
+
+<div id="loader">
+
+    <div class="loader-content">
+
+        <div class="loader-icon">
+            🌾
+        </div>
+
+        <h2>
+            Loading Your Profile
+        </h2>
+
+        <p>
+            Preparing your AI Farmer dashboard...
+        </p>
+
+        <div class="loader-bar">
+
+            <span></span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BACKGROUND EFFECTS
+===================================================== -->
+
+<div class="background-glow glow-one"></div>
+
+<div class="background-glow glow-two"></div>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="profile-navbar">
+
+
+    <a
+        href="index.html"
+        class="profile-logo">
+
+
+        <div class="logo-icon">
+
+            🌾
+
+        </div>
+
+
+        <div class="logo-text">
+
+            <strong>
+                AI Farmer
+            </strong>
+
+            <span>
+                Credit Scorer
+            </span>
+
+        </div>
+
+
+    </a>
+
+
+
+    <div class="nav-actions">
+
+
+        <a
+            href="index.html"
+            class="home-btn">
+
+            ← Home
+
+        </a>
+
+
+        <button
+            id="logoutBtn"
+            class="logout-btn">
+
+            Logout
+
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN PROFILE
+===================================================== -->
+
+<main class="profile-main">
+
+
+
+    <!-- =================================================
+         PROFILE HERO
+    ================================================== -->
+
+    <section class="profile-hero">
+
+
+        <div class="profile-cover">
+
+
+            <div class="cover-pattern"></div>
+
+
+            <div class="profile-status">
+
+                <span class="status-dot"></span>
+
+                Account Active
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="profile-content">
+
+
+
+            <!-- PROFILE AVATAR -->
+
+            <div class="avatar-wrapper">
+
+
+                <div
+                    id="profileAvatar"
+                    class="profile-avatar">
+
+                    U
+
+                </div>
+
+
+                <div class="verified-badge">
+
+                    ✓
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- USER INFO -->
+
+            <div class="profile-user-info">
+
+
+                <div class="user-title-row">
+
+
+                    <div>
+
+
+                        <h1
+                            id="userFullName">
+
+                            Loading...
+
+                        </h1>
+
+
+                        <p
+                            id="userEmail">
+
+                            Loading account information...
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div
+                        id="verificationStatus"
+                        class="verification-status">
+
+                        Checking account...
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="user-meta">
+
+
+                    <div class="meta-item">
+
+                        <span class="meta-icon">
+
+                            🌾
+
+                        </span>
+
+
+                        <span>
+
+                            Agricultural AI User
+
+                        </span>
+
+
+                    </div>
+
+
+
+                    <div class="meta-item">
+
+                        <span class="meta-icon">
+
+                            📅
+
+                        </span>
+
+
+                        <span
+                            id="memberSince">
+
+                            Member since ...
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         PROFILE GRID
+    ================================================== -->
+
+    <section class="profile-grid">
+
+
+
+        <!-- =============================================
+             ACCOUNT INFORMATION
+        ============================================== -->
+
+        <div class="profile-card account-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+                    <span class="card-tag">
+
+                        👤 ACCOUNT
+
+                    </span>
+
+
+                    <h2>
+
+                        Personal Information
+
+                    </h2>
+
+
+                    <p>
+
+                        Your secure account information.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="info-list">
+
+
+                <div class="info-row">
+
+
+                    <div class="info-icon">
+
+                        👤
+
+                    </div>
+
+
+                    <div class="info-content">
+
+
+                        <span>
+
+                            Full Name
+
+                        </span>
+
+
+                        <strong
+                            id="infoFullName">
+
+                            Loading...
+
+                        </strong>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="info-row">
+
+
+                    <div class="info-icon">
+
+                        ✉
+
+                    </div>
+
+
+                    <div class="info-content">
+
+
+                        <span>
+
+                            Email Address
+
+                        </span>
+
+
+                        <strong
+                            id="infoEmail">
+
+                            Loading...
+
+                        </strong>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="info-row">
+
+
+                    <div class="info-icon">
+
+                        🆔
+
+                    </div>
+
+
+                    <div class="info-content">
+
+
+                        <span>
+
+                            User ID
+
+                        </span>
+
+
+                        <strong
+                            id="userId">
+
+                            Loading...
+
+                        </strong>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =============================================
+             ACCOUNT SECURITY
+        ============================================== -->
+
+        <div class="profile-card security-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <span class="card-tag">
+
+                        🔐 SECURITY
+
+                    </span>
+
+
+                    <h2>
+
+                        Account Security
+
+                    </h2>
+
+
+                    <p>
+
+                        Your authentication status.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="security-status">
+
+
+
+                <div class="security-item">
+
+
+                    <div class="security-left">
+
+
+                        <div class="security-icon">
+
+                            ✉
+
+                        </div>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                Email Verification
+
+                            </strong>
+
+
+                            <span
+                                id="emailVerificationText">
+
+                                Checking...
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div
+                        id="emailVerificationBadge"
+                        class="security-badge">
+
+                        ...
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="security-item">
+
+
+                    <div class="security-left">
+
+
+                        <div class="security-icon">
+
+                            🔑
+
+                        </div>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                Authentication Provider
+
+                            </strong>
+
+
+                            <span
+                                id="authProvider">
+
+                                Loading...
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div
+                        class="security-badge active">
+
+                        Active
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =============================================
+             AI FARMER DASHBOARD
+        ============================================== -->
+
+        <div class="profile-card dashboard-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <span class="card-tag">
+
+                        🤖 AI PLATFORM
+
+                    </span>
+
+
+                    <h2>
+
+                        AI Credit Analysis
+
+                    </h2>
+
+
+                    <p>
+
+                        Start your agricultural credit assessment.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="dashboard-content">
+
+
+                <div class="dashboard-icon">
+
+                    🤖
+
+                </div>
+
+
+                <h3>
+
+                    Ready for AI Analysis
+
+                </h3>
+
+
+                <p>
+
+                    Your account is ready. Enter your
+                    agricultural and financial information
+                    to receive AI-powered credit insights.
+
+                </p>
+
+
+                <button
+                    id="startDashboardBtn"
+                    class="dashboard-btn">
+
+                    Start Credit Analysis →
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =============================================
+             ACCOUNT ACTIVITY
+        ============================================== -->
+
+        <div class="profile-card activity-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <span class="card-tag">
+
+                        📊 ACTIVITY
+
+                    </span>
+
+
+                    <h2>
+
+                        Account Activity
+
+                    </h2>
+
+
+                    <p>
+
+                        Your recent account information.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="activity-list">
+
+
+                <div class="activity-item">
+
+
+                    <div class="activity-dot active-dot"></div>
+
+
+                    <div>
+
+
+                        <strong>
+
+                            Account Active
+
+                        </strong>
+
+
+                        <span>
+
+                            You are successfully signed in.
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="activity-item">
+
+
+                    <div class="activity-dot"></div>
+
+
+                    <div>
+
+
+                        <strong>
+
+                            Profile Loaded
+
+                        </strong>
+
+
+                        <span>
+
+                            Your account information is securely loaded.
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         ACCOUNT IDENTITY
+    ================================================== -->
+
+    <section class="identity-section">
+
+
+        <div class="identity-card">
+
+
+            <div class="identity-icon">
+
+                🛡️
+
+            </div>
+
+
+            <div class="identity-content">
+
+
+                <span>
+
+                    SECURE DIGITAL IDENTITY
+
+                </span>
+
+
+                <h2>
+
+                    Your account is securely managed.
+
+                </h2>
+
+
+                <p>
+
+                    AI Farmer Credit Scorer uses secure
+                    authentication to protect your account
+                    information. Your password is not stored
+                    in this website's localStorage.
+
+                </p>
+
+
+            </div>
+
+
+            <div
+                id="identityCheck"
+                class="identity-check">
+
+                Verifying...
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="profile-footer">
+
+
+    <div>
+
+        🌾 AI Farmer Credit Scorer
+
+    </div>
+
+
+    <p>
+
+        © 2026 AI Farmer Credit Scorer.
+        AI Powered Agricultural Intelligence.
+
+    </p>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast">
+
+
+    <span
+        id="toastText">
+
+    </span>
+
+
+    <button
+        id="toastClose"
+        aria-label="Close message">
+
+        ×
+
+    </button>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     PROFILE JAVASCRIPT
+===================================================== -->
+
+<script
+    src="profile.js">
+</script>
+
+
+</body>
+
+                      </html>
