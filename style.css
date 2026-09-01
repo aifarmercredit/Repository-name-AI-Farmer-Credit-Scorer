@@ -1,101 +1,109 @@
-const authForm = document.getElementById("authForm");
-const authTitle = document.getElementById("authTitle");
-const authSubtitle = document.getElementById("authSubtitle");
-const nameGroup = document.getElementById("nameGroup");
-const fullName = document.getElementById("fullName");
-const email = document.getElementById("email");
-const password = document.getElementById("password");
-const passwordToggle = document.getElementById("passwordToggle");
-const passwordIcon = document.getElementById("passwordIcon");
-const formOptions = document.getElementById("formOptions");
-const authSubmit = document.getElementById("authSubmit");
-const authSubmitText = document.getElementById("authSubmitText");
-const submitIcon = document.getElementById("submitIcon");
-const authMessage = document.getElementById("authMessage");
-const switchAuthMode = document.getElementById("switchAuthMode");
-const switchText = document.getElementById("switchText");
-const googleLogin = document.getElementById("googleLogin");
-const forgotPassword = document.getElementById("forgotPassword");
-
-let authMode = new URLSearchParams(window.location.search).get("mode") === "signup" ? "signup" : "signin";
-
-function showMessage(message, type = "error") {
-    authMessage.textContent = message;
-    authMessage.style.color = type === "success" ? "#2f6b3f" : type === "info" ? "#46703a" : "#b3402f";
+:root {
+  --paper: #f6f1e4;
+  --ink: #23301e;
+  --ink-soft: #5b6555;
+  --leaf: #46703a;
+  --leaf-dark: #2f4f27;
+  --gold: #b1832c;
+  --rule: #d9cda3;
+  --white: #fffdf7;
+  --danger: #b3402f;
+  --success: #2f6b3f;
 }
 
-function setLoading(loading) {
-    authSubmit.disabled = loading;
-    submitIcon.className = loading ? "fa-solid fa-spinner fa-spin" : "fa-solid fa-arrow-right";
-    authSubmitText.textContent = loading ? (authMode === "signup" ? "Creating account…" : "Signing in…") : (authMode === "signup" ? "Create account" : "Sign in");
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: "Inter", sans-serif; background: var(--paper); color: var(--ink); }
+button, input { font-family: inherit; }
+
+.auth-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1.1fr; }
+
+/* ===== Left / ledger hero ===== */
+.auth-hero { position: relative; min-height: 100vh; background: linear-gradient(160deg, #2f4f27, #1c3218 75%); color: var(--paper); overflow: hidden; }
+.auth-hero::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(180deg, rgba(255,255,255,.05) 0 1px, transparent 1px 64px); }
+.hero-content { position: relative; z-index: 2; min-height: 100vh; padding: 55px 8%; display: flex; flex-direction: column; }
+.hero-logo { margin-bottom: auto; }
+.hero-logo span { width: 52px; height: 52px; border-radius: 12px; background: rgba(255,255,255,.12); display: grid; place-items: center; padding: 6px; }
+.hero-logo img { width: 100%; height: 100%; object-fit: contain; }
+.hero-text { max-width: 460px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 9px; padding: 9px 15px; border-radius: 30px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14); color: #e6d9a8; font-size: 11px; font-weight: 700; letter-spacing: .3px; margin-bottom: 24px; }
+.hero-badge i { color: var(--gold); }
+.auth-amharic { font-family: "Noto Sans Ethiopic", sans-serif; color: #d9c07a; font-size: 17px; margin: 14px 0 6px; }
+.auth-hero h1 { font-family: "Fraunces", serif; font-weight: 500; font-size: 46px; line-height: 1.1; letter-spacing: -.5px; margin-bottom: 20px; }
+.auth-hero h1 span { font-style: italic; color: #9ed6a9; }
+.auth-hero > .hero-content > .hero-text > p { color: rgba(240,244,236,.78); font-size: 15.5px; line-height: 1.7; margin-bottom: 32px; }
+.hero-benefits { display: grid; gap: 16px; }
+.benefit { display: flex; align-items: center; gap: 14px; }
+.benefit-icon { width: 42px; height: 42px; flex-shrink: 0; border-radius: 11px; background: rgba(255,255,255,.09); display: grid; place-items: center; color: #9ed6a9; }
+.benefit strong { display: block; font-size: 13.5px; }
+.benefit span { color: rgba(240,244,236,.65); font-size: 12px; }
+.hero-footer { display: flex; justify-content: space-between; font-size: 11px; color: rgba(240,244,236,.5); padding-top: 30px; }
+
+/* ===== Right / form ===== */
+.auth-section { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 70px 9% 50px; background: var(--paper); }
+.back-home { position: absolute; top: 32px; left: 9%; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink-soft); font-size: 13px; font-weight: 600; }
+.back-home:hover { color: var(--leaf); }
+.auth-container { width: 100%; max-width: 420px; }
+.mobile-logo { display: none; text-align: center; margin-bottom: 22px; }
+.mobile-logo img { width: 200px; max-width: 60%; height: auto; }
+
+.auth-header { margin-bottom: 28px; }
+.auth-small-title { display: inline-block; color: var(--leaf); font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+.auth-header h2 { font-family: "Fraunces", serif; font-weight: 500; font-size: 34px; letter-spacing: -.5px; margin-bottom: 10px; }
+.auth-header p { color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+
+#authForm { display: grid; gap: 18px; }
+.input-group { display: grid; gap: 8px; }
+.input-group label { font-size: 13px; font-weight: 700; }
+.input-wrapper { position: relative; display: flex; align-items: center; }
+.input-wrapper > i { position: absolute; left: 16px; color: #8a9481; font-size: 14px; pointer-events: none; }
+.input-wrapper input { width: 100%; height: 52px; padding: 0 46px; border-radius: 10px; border: 1px solid var(--rule); background: var(--white); color: var(--ink); outline: none; font-size: 14px; }
+.input-wrapper input::placeholder { color: #9aa290; }
+.input-wrapper input:focus { border-color: var(--leaf); box-shadow: 0 0 0 3px rgba(70,112,58,.12); }
+.password-toggle { position: absolute; right: 12px; border: none; background: transparent; color: #7c8873; width: 32px; height: 32px; border-radius: 8px; }
+.password-toggle:hover { background: var(--paper); color: var(--leaf); }
+
+.form-options { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.remember-me { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 12.5px; }
+.remember-me input { accent-color: var(--leaf); }
+.forgot-password { border: none; background: transparent; color: var(--leaf-dark); font-size: 12.5px; font-weight: 700; }
+.forgot-password:hover { text-decoration: underline; }
+
+.auth-message { min-height: 18px; font-size: 12.5px; font-weight: 600; text-align: center; }
+
+.auth-submit { width: 100%; height: 52px; border: none; border-radius: 10px; background: var(--leaf); color: var(--white); font-size: 14.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.auth-submit:hover { background: var(--leaf-dark); }
+.auth-submit:disabled { opacity: .7; cursor: not-allowed; }
+
+.auth-divider { position: relative; display: flex; align-items: center; justify-content: center; margin: 24px 0; }
+.auth-divider::before, .auth-divider::after { content: ""; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--rule); }
+.auth-divider::before { left: 0; } .auth-divider::after { right: 0; }
+.auth-divider span { background: var(--paper); padding: 0 12px; color: var(--ink-soft); font-size: 10px; font-weight: 700; letter-spacing: .5px; }
+
+.google-button { width: 100%; height: 52px; border: 1px solid var(--rule); border-radius: 10px; background: var(--white); color: var(--ink); display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 700; }
+.google-button:hover { border-color: var(--leaf); }
+.google-button:disabled { opacity: .7; cursor: not-allowed; }
+
+.auth-switch { display: flex; justify-content: center; gap: 6px; margin-top: 26px; font-size: 13px; color: var(--ink-soft); }
+.auth-switch button { border: none; background: transparent; color: var(--leaf-dark); font-weight: 800; font-size: 13px; }
+.auth-switch button:hover { text-decoration: underline; }
+
+.security-note { margin-top: 26px; padding: 13px 16px; display: flex; align-items: center; gap: 10px; border-radius: 10px; background: var(--paper); border: 1px solid var(--rule); color: var(--ink-soft); font-size: 11.5px; line-height: 1.5; }
+.security-note i { color: var(--leaf); font-size: 14px; }
+
+@media (max-width: 1000px) {
+  .hero-content { padding: 45px 8%; }
+  .auth-hero h1 { font-size: 38px; }
 }
-
-function updateAuthMode() {
-    const creatingAccount = authMode === "signup";
-    authTitle.textContent = creatingAccount ? "Create account" : "Welcome back";
-    authSubtitle.textContent = creatingAccount ? "Create an account to start your AI-powered credit assessment." : "Sign in to continue to your AI-powered credit assessment.";
-    nameGroup.style.display = creatingAccount ? "flex" : "none";
-    fullName.required = creatingAccount;
-    formOptions.style.display = creatingAccount ? "none" : "flex";
-    password.autocomplete = creatingAccount ? "new-password" : "current-password";
-    password.placeholder = creatingAccount ? "Create a password (8+ characters)" : "Enter your password";
-    switchText.textContent = creatingAccount ? "Already have an account?" : "Don't have an account?";
-    switchAuthMode.textContent = creatingAccount ? "Sign in" : "Create account";
-    authSubmitText.textContent = creatingAccount ? "Create account" : "Sign in";
-    authMessage.textContent = "";
+@media (max-width: 820px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-hero { display: none; }
+  .auth-section { min-height: 100vh; padding: 100px 8% 50px; }
+  .mobile-logo { display: block; }
 }
-
-async function api(path, body) {
-    const response = await fetch(path, {
-        method: body ? "POST" : "GET",
-        credentials: "same-origin",
-        headers: body ? { "Content-Type": "application/json" } : undefined,
-        body: body ? JSON.stringify(body) : undefined
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Something went wrong.");
-    return data;
+@media (max-width: 500px) {
+  .auth-section { padding: 90px 20px 40px; }
+  .back-home { top: 24px; left: 20px; }
+  .auth-header h2 { font-size: 29px; }
+  .form-options { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
-
-authForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const userEmail = email.value.trim();
-    const userPassword = password.value;
-    if (!userEmail || !userPassword) return showMessage("Please enter your email and password.");
-    if (authMode === "signup" && !fullName.value.trim()) return showMessage("Please enter your full name.");
-    if (authMode === "signup" && userPassword.length < 8) return showMessage("Password must be at least 8 characters.");
-    try {
-        setLoading(true);
-        const result = await api(authMode === "signup" ? "/api/auth/signup" : "/api/auth/signin", { fullName: fullName.value.trim(), email: userEmail, password: userPassword });
-        password.value = "";
-        showMessage(`Signed in as ${result.user.email}. Opening your dashboard…`, "success");
-        setTimeout(() => window.location.replace("dashboard.html"), 500);
-    } catch (error) {
-        showMessage(error.message);
-    } finally {
-        setLoading(false);
-    }
-});
-
-switchAuthMode.addEventListener("click", () => {
-    authMode = authMode === "signin" ? "signup" : "signin";
-    password.value = "";
-    updateAuthMode();
-});
-
-passwordToggle.addEventListener("click", () => {
-    const visible = password.type === "password";
-    password.type = visible ? "text" : "password";
-    passwordIcon.className = visible ? "fa-regular fa-eye-slash" : "fa-regular fa-eye";
-});
-
-googleLogin.addEventListener("click", () => window.location.assign("/api/auth/google"));
-forgotPassword.addEventListener("click", () => showMessage("Password reset needs an email provider. Contact the site administrator for now.", "info"));
-
-async function checkSession() {
-    const error = new URLSearchParams(window.location.search).get("auth_error");
-    if (error) { showMessage(error); history.replaceState({}, "", window.location.pathname); return; }
-    try { await api("/api/auth/session"); window.location.replace("dashboard.html"); } catch { /* Signed out is the normal first-visit state. */ }
-}
-
-document.addEventListener("DOMContentLoaded", () => { updateAuthMode(); checkSession(); });
