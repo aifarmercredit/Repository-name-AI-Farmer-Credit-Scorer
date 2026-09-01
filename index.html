@@ -1,0 +1,147 @@
+!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI-powered credit readiness tools built for Ethiopian farmers." />
+    <title>FarmerCredit — Smarter finance for every farm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="home.css?v=2" />
+  </head>
+  <body>
+    <div class="utility-bar">
+      <div class="page-width">
+        <span class="amharic">የገበሬዎች የፋይናንስ አጋር</span>
+        <div><a href="#contact">Contact support</a><a href="auth.html?mode=signin">Farmer portal</a></div>
+      </div>
+    </div>
+
+    <header class="site-header" id="siteHeader">
+      <nav class="nav-wrap" aria-label="Main navigation">
+        <a class="brand" href="#home"><img class="brand-icon" src="assets/logo-mark.png" alt="FarmerCredit logo" />Farmer<span>Credit</span></a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+        <div class="nav-links" id="navLinks">
+          <a class="active" href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#how">How it works</a>
+          <a href="#contact">Contact</a>
+          <a class="nav-signin" href="auth.html?mode=signin">Sign in</a>
+          <a class="nav-cta" href="auth.html?mode=signup">Create account</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="page-width hero-grid">
+          <div class="hero-copy reveal">
+            <span class="eyebrow">BUILT FOR ETHIOPIAN FARMERS</span>
+            <p class="hero-amharic">የገበሬዎች የፋይናንስ አጋር</p>
+            <h1 class="serif">Credit confidence for <span>every farm.</span></h1>
+            <p>Answer a few honest questions about your farm and income, and see where you stand before you ever walk into a lender's office.</p>
+            <div class="hero-actions">
+              <a class="primary-btn" href="auth.html?mode=signup">Check my readiness <i class="fa-solid fa-arrow-right"></i></a>
+              <a class="play-link" href="#how"><span><i class="fa-solid fa-play"></i></span> See how it works</a>
+            </div>
+            <div class="trust-row"><span><i class="fa-solid fa-shield-halved"></i>Private & secure</span><span><i class="fa-solid fa-clock"></i>Takes 2 minutes</span><span><i class="fa-solid fa-handshake"></i>Local farmer focus</span></div>
+          </div>
+
+          <div class="ledger-widget reveal delay-one" aria-label="Try a sample credit readiness calculation">
+            <div class="ledger-widget-head"><strong class="serif">Try it now</strong><span>Sample entry — not saved</span></div>
+            <hr class="ledger-rule" />
+            <div class="slider-row">
+              <div class="row-top"><span>Farm size</span><b id="acresOut">4 acres</b></div>
+              <input type="range" id="acresRange" min="0.5" max="20" step="0.5" value="4" />
+            </div>
+            <div class="slider-row">
+              <div class="row-top"><span>Monthly income</span><b id="incomeOut">KSh 30,000</b></div>
+              <input type="range" id="incomeRange" min="2000" max="120000" step="1000" value="30000" />
+            </div>
+            <div class="slider-row">
+              <div class="row-top"><span>Repayment record</span><b id="historyOut">Always on time</b></div>
+              <input type="range" id="historyRange" min="0" max="3" step="1" value="3" />
+            </div>
+            <hr class="ledger-rule" />
+            <div class="ledger-result">
+              <div class="ledger-result-score"><span id="previewScore">78</span><sup>/100</sup></div>
+              <div class="ledger-result-label"><b id="previewLabel">Strong readiness</b>Sign up to save a real assessment and get personal next steps.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip">
+        <div class="page-width proof-grid"><div><strong>2,500+</strong><span>Farmer profiles ready</span></div><div><strong>87%</strong><span>Assessment completion</span></div><div><strong>2 min</strong><span>To get your result</span></div><div><strong>13+</strong><span>Regions in mind</span></div></div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="page-width split-grid">
+          <div class="about-visual">
+            <div class="farm-card"><span class="sun"></span><span class="hill hill-one"></span><span class="hill hill-two"></span><i class="fa-solid fa-tractor"></i><div class="growth-badge"><div><i class="fa-solid fa-arrow-trend-up"></i><strong>Built for growth</strong></div><span>Practical insights for real farms</span></div></div>
+          </div>
+          <div class="section-copy">
+            <span class="eyebrow">ABOUT FARMERCREDIT</span>
+            <h2 class="serif">Financial confidence starts with understanding.</h2>
+            <p>Many hardworking farmers struggle to explain their farm's true potential to lenders. FarmerCredit turns simple farm and financial information into clear, practical readiness insights — no financial jargon, no paperwork.</p>
+            <div class="check-list">
+              <div><i class="fa-solid fa-check"></i><span><strong>Simple questions</strong>No confusing financial language.</span></div>
+              <div><i class="fa-solid fa-check"></i><span><strong>Useful guidance</strong>Know what to improve before applying.</span></div>
+              <div><i class="fa-solid fa-check"></i><span><strong>Designed for farmers</strong>Built around real agricultural needs.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section how" id="how">
+        <div class="page-width">
+          <div class="section-heading"><span class="eyebrow">HOW IT WORKS</span><h2 class="serif">Three entries to your result</h2><p>No paperwork, no complicated calculations — just three simple steps.</p></div>
+          <div class="ledger-steps">
+            <div class="ledger-step"><span class="entry-no serif">01</span><div><h3 class="serif">Create your account</h3><p>Sign up securely with your name and email, then open your farmer dashboard.</p></div></div>
+            <div class="ledger-step"><span class="entry-no serif">02</span><div><h3 class="serif">Tell us about your farm</h3><p>Answer five simple questions about your farm, income, loans and repayments.</p></div></div>
+            <div class="ledger-step"><span class="entry-no serif">03</span><div><h3 class="serif">Get clear next steps</h3><p>See your readiness score and practical ways to strengthen your profile.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="video-band">
+        <video autoplay muted loop playsinline poster="assets/hero-poster.jpg">
+          <source src="assets/hero-bg.mp4" type="video/mp4" />
+        </video>
+        <div class="video-band-overlay"></div>
+        <div class="page-width video-band-copy">
+          <span class="eyebrow">IN THE FIELD</span>
+          <h2 class="serif">Built alongside the farmers who use it.</h2>
+        </div>
+      </section>
+
+      <section class="cta-section"><div class="page-width"><div class="cta-card"><div><span class="eyebrow">READY TO GROW?</span><h2 class="serif">Your stronger financial future starts here.</h2><p>Create a free account and get your first readiness result today.</p></div><a class="light-btn" href="auth.html?mode=signup">Create free account <i class="fa-solid fa-arrow-right"></i></a></div></div></section>
+
+      <section class="section contact" id="contact">
+        <div class="page-width contact-grid">
+          <div class="section-copy">
+            <span class="eyebrow">CONTACT US</span>
+            <h2 class="serif">Questions? We're here to help.</h2>
+            <p>Send us a message and our farmer support team will get back to you.</p>
+            <div class="contact-details">
+              <div><i class="fa-regular fa-envelope"></i><span><strong>Email us</strong>support@farmercredit.local</span></div>
+              <div><i class="fa-solid fa-location-dot"></i><span><strong>Our focus</strong>Supporting farmers across Kenya</span></div>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <label>Your name<input id="contactName" type="text" placeholder="Enter your name" required /></label>
+            <label>Email address<input type="email" placeholder="you@example.com" required /></label>
+            <label>How can we help?<textarea rows="4" placeholder="Tell us your question" required></textarea></label>
+            <button class="primary-btn" type="submit" style="border:0;justify-content:center">Send message <i class="fa-regular fa-paper-plane"></i></button>
+            <p class="form-status" id="contactStatus" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="page-width footer-grid"><a class="brand" href="#home"><img class="brand-icon" src="assets/logo-mark.png" alt="FarmerCredit logo" />Farmer<span>Credit</span></a><p>Smarter credit readiness for stronger farms.</p><div><a href="#about">About</a><a href="#contact">Contact</a><a href="auth.html?mode=signin">Sign in</a></div><span>© 2026 FarmerCredit</span></div></footer>
+    <script src="home.js?v=2"></script>
+  </body>
+</html>
