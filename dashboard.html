@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farmer dashboard | FarmerCredit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="dashboard.css?v=2" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="dashboard.html" aria-label="Farmer Credit home">
+        <span class="brand-mark"><img src="assets/logo-mark.png" alt="" /></span>
+        <span>Farmer<span>Credit</span></span>
+      </a>
+      <nav aria-label="Dashboard navigation">
+        <button class="nav-item active" data-target="overview"><i class="fa-solid fa-grid-2"></i><span>Overview</span></button>
+        <button class="nav-item" data-target="assessment"><i class="fa-solid fa-chart-simple"></i><span>Credit assessment</span></button>
+        <button class="nav-item" data-target="tips"><i class="fa-regular fa-lightbulb"></i><span>Farmer tips</span></button>
+      </nav>
+      <div class="sidebar-help">
+        <i class="fa-solid fa-headset"></i>
+        <strong>Need help?</strong>
+        <span>Complete your assessment and review the tips below.</span>
+      </div>
+    </aside>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="topbar-title"><strong>Farmer dashboard</strong><span id="today"></span></div>
+        <div class="account-menu">
+          <button class="account-button" id="accountButton" aria-expanded="false">
+            <span class="avatar" id="avatar">F</span>
+            <span class="account-copy"><strong id="accountName">Farmer</strong><small id="accountEmail">Loading…</small></span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="account-dropdown" id="accountDropdown">
+            <button id="signOut"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="welcome" id="overview">
+          <div>
+            <span class="eyebrow">YOUR FARM FINANCE HUB</span>
+            <h1>Good day, <span id="farmerName">Farmer</span></h1>
+            <p>Build your credit profile and understand what lenders may look for.</p>
+          </div>
+          <button class="primary-button" data-scroll="assessment"><i class="fa-solid fa-wand-magic-sparkles"></i> Start assessment</button>
+        </section>
+
+        <section class="stat-grid" aria-label="Credit summary">
+          <article class="stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-gauge-high"></i></div>
+            <div><span>Credit readiness</span><strong id="summaryScore">Not scored</strong><small id="scoreHint">Complete your first assessment</small></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon gold"><i class="fa-regular fa-user"></i></div>
+            <div><span>Profile status</span><strong id="profileStatus">Getting started</strong><small>Account verified</small></div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-file-circle-check"></i></div>
+            <div><span>Assessments</span><strong id="assessmentCount">0 completed</strong><small>Your results stay on this device</small></div>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel assessment-panel" id="assessment">
+            <div class="panel-heading">
+              <div><span class="eyebrow">QUICK CHECK</span><h2>Credit readiness assessment</h2><p>Answer five simple questions about your farm.</p></div>
+              <span class="step-pill">About 2 minutes</span>
+            </div>
+            <form id="assessmentForm">
+              <div class="form-grid">
+                <label>Farm size (acres)<input id="farmSize" type="number" min="0.1" step="0.1" placeholder="e.g. 5" required /></label>
+                <label>Years farming<input id="yearsFarming" type="number" min="0" max="80" placeholder="e.g. 4" required /></label>
+                <label>Average monthly income (KSh)<input id="monthlyIncome" type="number" min="0" step="100" placeholder="e.g. 45000" required /></label>
+                <label>Current loan balance (KSh)<input id="loanBalance" type="number" min="0" step="100" placeholder="Enter 0 if none" required /></label>
+                <label class="wide">Past repayment record<select id="repaymentHistory" required><option value="">Choose one</option><option value="good">Always paid on time</option><option value="fair">Occasionally paid late</option><option value="new">No previous loan</option><option value="poor">Frequently paid late</option></select></label>
+              </div>
+              <div class="live-preview" id="livePreview" hidden>
+                <span>Running estimate as you type</span>
+                <strong id="livePreviewScore">—</strong>
+              </div>
+              <button class="primary-button" type="submit"><i class="fa-solid fa-chart-line"></i> Calculate my readiness</button>
+            </form>
+            <div class="result-card" id="resultCard" aria-live="polite">
+              <div class="score-ring" id="scoreRing"><strong id="resultScore">0</strong><span>/ 100</span></div>
+              <div><span class="eyebrow">YOUR RESULT</span><h3 id="resultTitle">Credit readiness calculated</h3><p id="resultMessage"></p><button class="text-button" id="recalculate" type="button">Update answers</button></div>
+            </div>
+          </article>
+
+          <aside class="panel tips-panel" id="tips">
+            <div class="panel-heading"><div><span class="eyebrow">NEXT STEPS</span><h2>Strengthen your profile</h2></div></div>
+            <div class="tip-list">
+              <div class="tip"><span>1</span><div><strong>Keep farm records</strong><p>Track sales, expenses and harvests every month.</p></div></div>
+              <div class="tip"><span>2</span><div><strong>Pay on time</strong><p>Consistent repayments build lender confidence.</p></div></div>
+              <div class="tip"><span>3</span><div><strong>Separate finances</strong><p>Use a dedicated account for farm income and costs.</p></div></div>
+            </div>
+            <div class="privacy-note"><i class="fa-solid fa-shield-halved"></i><p><strong>Your data stays private</strong><span>Your answers are used only to calculate this readiness estimate.</span></p></div>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <script src="dashboard.js?v=2"></script>
+  </body>
+</html>
