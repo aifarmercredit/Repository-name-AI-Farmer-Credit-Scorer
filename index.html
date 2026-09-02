@@ -30,7 +30,17 @@
     for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
   create table public.contact_messages (
-    id uuid primary key default gen_random_uuid(),
+     const CONFIG = {
+  SUPABASE_URL: "https://xcevtpkrasvevwyvvdjq.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_C_WZDTvi8dZwZAgKQh6ANA_vJDd6LKH",
+  PREDICT_API: ""
+};
+ 
+  
+  
+  id uuid primary key default gen_random_uuid(),
+  
+ 
     name text not null, email text not null, subject text, message text not null,
     created_at timestamptz not null default now()
   );
