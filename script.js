@@ -20,7 +20,7 @@
 const FRONTEND_CONFIG = {
   SUPABASE_URL: "https://xcevtpkrasvevwyvvdjq.supabase.com",
   SUPABASE_PUBLISHABLE_KEY: "sb_publishable_C_WZDTvi8dZwZAgKQh6ANA_vJDd6LKH",
-  GOOGLE_CLIENT_ID: "45705222359-rcgdd2mi2ackpv38ki10g7krlavbhdgm.apps.googleusercontent.com"
+  GOOGLE_CLIENT_ID: "45705222359-rcgdd2mi2ackpv38ki10g7krlavbhdgm.apps.googleusercontent.com",
 };
 
 const STORAGE_KEY = "ai_farmer_credit_assessments";
