@@ -10,7 +10,7 @@
 
     SUPABASE_URL=YOUR_SUPABASE_URL =  "https://xcevtpkrasvevwyvvdjq.supabase.co";
     SUPABASE_PUBLISHABLE_KEY=YOUR_SUPABASE_PUBLISHABLE_KEY =  "sb_publishable_C_WZDTvi8dZwZAgKQh6ANA_vJDd6LKH";
-    GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID = "45705222359-rcgdd2mi2ackpv38ki10g7krlavbhdgm.apps.googleusercontent.com"
+    GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID = "45705222359-rcgdd2mi2ackpv38ki10g7krlavbhdgm.apps.googleusercontent.com",
 
   SECURITY:
     Never place SUPABASE_SECRET_KEY or a Supabase service-role key here.
